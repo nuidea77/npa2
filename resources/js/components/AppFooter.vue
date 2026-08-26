@@ -29,7 +29,7 @@ const quickLinks = computed(() => [
         <div class="mx-auto grid max-w-7xl gap-12 px-4 py-14 md:grid-cols-2 lg:grid-cols-4">
             <!-- Лого + тайлбар -->
             <div>
-                <Logo emblem-class="h-14 w-auto" text-class="text-sm" />
+                <Logo img-class="h-12 w-auto" />
                 <p class="mt-5 text-[15px] leading-relaxed text-white/80">
                     {{ locale === 'en'
                         ? "Empowering conservation leaders through education and hands-on experience in Mongolia's protected areas."

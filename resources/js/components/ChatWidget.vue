@@ -77,7 +77,7 @@ async function send(text) {
         class="fixed bottom-24 right-5 z-40 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl sm:w-96"
     >
         <div class="flex items-center gap-2 bg-pine-700 px-4 py-3 text-white">
-            <Icon name="chat" :size="20" />
+            <img src="/images/favicon.png" alt="" class="h-7 w-7 rounded-lg" />
             <div class="text-sm font-bold">{{ t('footer.assistant') }}</div>
         </div>
 

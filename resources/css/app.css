@@ -7,18 +7,18 @@
 @theme {
     --font-sans: 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', Arial, ui-sans-serif, system-ui, sans-serif;
 
-    /* Чидун ногоон — үндсэн брэнд өнгө (header, footer, товч) */
-    --color-pine-50: #f6f6f0;
-    --color-pine-100: #e9ebde;
-    --color-pine-200: #d5dac3;
-    --color-pine-300: #b8c19e;
-    --color-pine-400: #97a37a;
-    --color-pine-500: #78865e;
-    --color-pine-600: #5d6a48;
-    --color-pine-700: #4a5540;
-    --color-pine-800: #3c4534;
-    --color-pine-900: #2c3326;
-    --color-pine-950: #20261c;
+    /* Чидун ногоон — nationalparkacademy.org-ийн брэнд өнгө (#384b27) */
+    --color-pine-50: #f5f7f0;
+    --color-pine-100: #e7ecdb;
+    --color-pine-200: #cfd9ba;
+    --color-pine-300: #adbe8f;
+    --color-pine-400: #88a064;
+    --color-pine-500: #648046;
+    --color-pine-600: #4a6134;
+    --color-pine-700: #384b27;
+    --color-pine-800: #2e3d21;
+    --color-pine-900: #253219;
+    --color-pine-950: #141d0d;
 
     /* Цайвар шаргал / cream — CTA товч, онцлох дэвсгэр */
     --color-sand-50: #faf9f4;

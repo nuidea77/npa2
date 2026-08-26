@@ -34,7 +34,7 @@ async function submit() {
     <div class="mx-auto flex max-w-md flex-col px-4 py-16">
         <div class="rounded-2xl border border-stone-100 bg-white p-8 shadow-sm">
             <div class="text-center">
-                <Logo :show-text="false" emblem-class="mx-auto h-16 w-auto" class="text-pine-700" />
+                <Logo variant="badge" img-class="mx-auto h-16 w-16" />
                 <h1 class="mt-3 text-xl font-bold text-pine-900">{{ t('auth.loginTitle') }}</h1>
                 <p class="mt-1 text-sm text-stone-500">National Park Academy</p>
             </div>

@@ -35,8 +35,8 @@ async function logout() {
     <header class="sticky top-0 z-40 bg-pine-700 text-white shadow-md">
         <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-4 px-4">
             <!-- Лого -->
-            <router-link to="/" class="shrink-0 text-white" @click="closeAll">
-                <Logo emblem-class="h-12 w-auto" text-class="text-[13px]" />
+            <router-link to="/" class="group shrink-0" @click="closeAll">
+                <Logo img-class="h-10 w-auto transition-transform group-hover:scale-105" />
             </router-link>
 
             <!-- Үндсэн цэс (desktop) -->
