@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+@source '../js/**/*.vue';
+@source '../js/**/*.js';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', Arial, ui-sans-serif, system-ui, sans-serif;
+
+    --color-pine-50: #f2f8f4;
+    --color-pine-100: #dfeee4;
+    --color-pine-200: #c1ddcc;
+    --color-pine-300: #96c4ab;
+    --color-pine-400: #68a585;
+    --color-pine-500: #468968;
+    --color-pine-600: #336d52;
+    --color-pine-700: #295843;
+    --color-pine-800: #234737;
+    --color-pine-900: #1e3b2f;
+    --color-pine-950: #0f211a;
+
+    --color-sand-50: #fbf7ef;
+    --color-sand-100: #f4ead6;
+    --color-sand-200: #e8d3ab;
+    --color-sand-300: #dbb87a;
+    --color-sand-400: #d1a055;
+    --color-sand-500: #c78a40;
+    --color-sand-600: #b06f35;
+    --color-sand-700: #93552e;
+    --color-sand-800: #78452b;
+    --color-sand-900: #633a26;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-stone-50 text-stone-800;
+}
+
+/* Урт текстийн мөр таслалт */
+.prose-mn p {
+    @apply leading-relaxed;
+}

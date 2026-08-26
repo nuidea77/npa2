@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="55" fill="none" stroke="#295843" stroke-width="5" stroke-dasharray="4 5"/>
+  <circle cx="60" cy="60" r="45" fill="#f2f8f4" stroke="#295843" stroke-width="3"/>
+  <path d="M36 70 L52 48 L62 60 L70 51 L84 70 Z" fill="#295843"/>
+  <circle cx="74" cy="42" r="6" fill="#f3c14b"/>
+  <text x="60" y="88" font-family="Arial" font-size="15" font-weight="bold" fill="#295843" text-anchor="middle">2026</text>
+  <text x="60" y="32" font-family="Arial" font-size="10" font-weight="bold" fill="#295843" text-anchor="middle">NPA</text>
+</svg>

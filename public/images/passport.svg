@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="500" fill="#dfeee4"/>
+  <rect x="240" y="70" width="320" height="380" rx="18" fill="#1e3b2f"/>
+  <rect x="256" y="86" width="288" height="348" rx="12" fill="none" stroke="#f3c14b" stroke-width="3"/>
+  <circle cx="400" cy="210" r="64" fill="none" stroke="#f3c14b" stroke-width="4"/>
+  <path d="M352 240 L382 200 L400 222 L414 206 L448 240 Z" fill="#f3c14b"/>
+  <circle cx="424" cy="180" r="10" fill="#f3c14b"/>
+  <text x="400" y="310" font-family="Arial" font-size="26" font-weight="bold" fill="#f2f8f4" text-anchor="middle">NPA PASSPORT</text>
+  <text x="400" y="345" font-family="Arial" font-size="16" fill="#96c4ab" text-anchor="middle">National Park Academy</text>
+</svg>

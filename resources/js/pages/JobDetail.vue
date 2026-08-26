@@ -1,0 +1,83 @@
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import axios from '../bootstrap';
+import { t } from '../i18n';
+
+const route = useRoute();
+const job = ref(null);
+const loading = ref(true);
+
+onMounted(async () => {
+    try {
+        const { data } = await axios.get(`/api/jobs/${route.params.id}`);
+        job.value = data.job;
+    } finally {
+        loading.value = false;
+    }
+});
+</script>
+
+<template>
+    <div class="mx-auto max-w-4xl px-4 py-12">
+        <router-link to="/jobs" class="text-sm font-medium text-pine-600 hover:text-pine-800">← {{ t('common.back') }}</router-link>
+
+        <div v-if="loading" class="mt-6 text-stone-400">{{ t('common.loading') }}</div>
+
+        <div v-else-if="job" class="mt-5">
+            <div class="flex flex-wrap items-center gap-2">
+                <span
+                    class="rounded-full px-3 py-1 text-xs font-bold"
+                    :class="job.status === 'open' ? 'bg-pine-100 text-pine-800' : 'bg-red-100 text-red-700'"
+                >{{ job.status === 'open' ? t('common.open') : t('common.closed') }}</span>
+                <span class="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600">{{ job.contract_type }}</span>
+                <span class="text-xs text-stone-400">{{ job.open_date }} — {{ job.close_date }}</span>
+            </div>
+
+            <h1 class="mt-3 text-2xl font-bold text-pine-900 md:text-3xl">{{ job.position }}</h1>
+            <div class="mt-2 text-stone-600">{{ job.park_name }} — {{ job.org?.name }}</div>
+
+            <div class="mt-8 grid gap-6 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <section class="card">
+                        <h2 class="card-h">Ажлын байрны тодорхойлолт</h2>
+                        <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-stone-600">{{ job.description }}</p>
+                    </section>
+                    <section class="card mt-4">
+                        <h2 class="card-h">Тавигдах шаардлага</h2>
+                        <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-stone-600">{{ job.requirements }}</p>
+                    </section>
+                    <section class="card mt-4">
+                        <h2 class="card-h">Бүрдүүлэх материал</h2>
+                        <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-stone-600">{{ job.materials }}</p>
+                    </section>
+                </div>
+                <aside>
+                    <div class="card bg-pine-50">
+                        <h2 class="card-h">Холбоо барих</h2>
+                        <div class="mt-3 space-y-2 text-sm text-stone-700">
+                            <div>🏢 {{ job.org?.name }}</div>
+                            <div v-if="job.org?.address">📍 {{ job.org.address }}</div>
+                            <div>📞 {{ job.phone || job.org?.phone }}</div>
+                            <div>✉️ <a :href="'mailto:' + (job.email || job.org?.email)" class="underline">{{ job.email || job.org?.email }}</a></div>
+                        </div>
+                        <p class="mt-4 text-xs text-stone-500">
+                            Материалаа дээрх хаягаар шууд илгээнэ үү — NPA вэбээр хүсэлт ирүүлэх шаардлагагүй.
+                        </p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+@reference '../../css/app.css';
+
+.card {
+    @apply rounded-2xl border border-stone-100 bg-white p-5 shadow-sm;
+}
+.card-h {
+    @apply font-bold text-pine-900;
+}
+</style>

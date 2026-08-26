@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="rs" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#a3c6dc"/><stop offset="1" stop-color="#e9f2ee"/>
+  </linearGradient></defs>
+  <rect width="800" height="500" fill="url(#rs)"/>
+  <circle cx="150" cy="95" r="42" fill="#f3c14b" opacity="0.92"/>
+  <path d="M480 400 L640 240 L800 400 Z" fill="#2f6450"/>
+  <!-- Мэлхий хад маягийн тогтоц -->
+  <g fill="#9b8e7e">
+    <path d="M250 400 L260 250 Q270 200 330 205 Q390 210 392 260 L400 400 Z"/>
+    <ellipse cx="330" cy="205" rx="58" ry="34"/>
+    <path d="M395 300 Q450 280 470 320 L470 400 L400 400 Z"/>
+  </g>
+  <g fill="#877a6a">
+    <path d="M262 400 L270 260 Q276 222 320 224 L322 400 Z"/>
+    <ellipse cx="308" cy="208" rx="34" ry="24"/>
+  </g>
+  <path d="M120 400 L160 320 Q170 300 190 312 L230 400 Z" fill="#9b8e7e"/>
+  <rect y="400" width="800" height="100" fill="#7ba05b"/>
+  <g fill="#1e3b2f">
+    <path d="M560 340 l22 44 h-44 z M560 364 l28 56 h-56 z"/>
+    <path d="M660 320 l24 48 h-48 z M660 346 l30 60 h-60 z"/>
+    <path d="M80 340 l20 40 h-40 z M80 362 l26 52 h-52 z"/>
+  </g>
+  <g stroke="#1e3b2f" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8">
+    <path d="M540 120 q14 -14 28 0 q14 -14 28 0"/>
+  </g>
+</svg>
