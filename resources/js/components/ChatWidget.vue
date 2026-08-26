@@ -2,6 +2,7 @@
 import { nextTick, ref } from 'vue';
 import axios from '../bootstrap';
 import { locale, t } from '../i18n';
+import Icon from './Icon.vue';
 
 /**
  * «NPA туслах» — FAQ дээр суурилсан энгийн туслах чат.
@@ -63,12 +64,11 @@ async function send(text) {
 <template>
     <!-- Нээх товч -->
     <button
-        class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pine-700 text-2xl text-white shadow-lg transition hover:bg-pine-800"
+        class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pine-700 text-white shadow-lg transition hover:bg-pine-800"
         :title="t('footer.assistant')"
         @click="toggleOpen"
     >
-        <span v-if="!open">💬</span>
-        <span v-else>✕</span>
+        <Icon :name="open ? 'x' : 'chat'" :size="24" />
     </button>
 
     <!-- Чат цонх -->
@@ -77,7 +77,7 @@ async function send(text) {
         class="fixed bottom-24 right-5 z-40 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl sm:w-96"
     >
         <div class="flex items-center gap-2 bg-pine-700 px-4 py-3 text-white">
-            <img src="/images/logo.svg" class="h-7 w-7" alt="" />
+            <Icon name="chat" :size="20" />
             <div class="text-sm font-bold">{{ t('footer.assistant') }}</div>
         </div>
 
@@ -105,7 +105,7 @@ async function send(text) {
                 class="flex-1 rounded-full border border-stone-200 px-3.5 py-2 text-sm outline-none focus:border-pine-400"
                 :placeholder="locale === 'en' ? 'Type your question...' : 'Асуултаа бичнэ үү...'"
             />
-            <button class="rounded-full bg-pine-700 px-4 py-2 text-sm font-semibold text-white hover:bg-pine-800">➤</button>
+            <button class="flex items-center rounded-full bg-pine-700 px-4 py-2 text-sm font-semibold text-white hover:bg-pine-800"><Icon name="arrow-right" :size="16" /></button>
         </form>
     </div>
 </template>

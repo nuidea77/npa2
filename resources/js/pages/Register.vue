@@ -51,7 +51,7 @@ function closeSuccess() {
     <div class="mx-auto max-w-2xl px-4 py-12">
         <div class="rounded-2xl border border-stone-100 bg-white p-8 shadow-sm">
             <h1 class="text-xl font-bold text-pine-900">{{ t('auth.registerTitle') }}</h1>
-            <p class="mt-2 rounded-xl bg-pine-50 p-3 text-sm text-pine-800">ℹ️ {{ t('auth.registerNote') }}</p>
+            <p class="mt-2 rounded-xl bg-pine-50 p-3 text-sm text-pine-800">{{ t('auth.registerNote') }}</p>
 
             <form class="mt-6 grid gap-4" @submit.prevent="submit">
                 <div class="grid gap-4 sm:grid-cols-2">
@@ -77,10 +77,10 @@ function closeSuccess() {
                         <label class="label">{{ t('auth.gender') }} *</label>
                         <div class="flex gap-3 pt-1.5">
                             <label class="flex items-center gap-2 text-sm">
-                                <input v-model="form.gender" type="radio" value="male" class="accent-pine-700" /> 👨 {{ t('auth.male') }}
+                                <input v-model="form.gender" type="radio" value="male" class="accent-pine-700" /> {{ t('auth.male') }}
                             </label>
                             <label class="flex items-center gap-2 text-sm">
-                                <input v-model="form.gender" type="radio" value="female" class="accent-pine-700" /> 👩 {{ t('auth.female') }}
+                                <input v-model="form.gender" type="radio" value="female" class="accent-pine-700" /> {{ t('auth.female') }}
                             </label>
                         </div>
                         <p v-if="errors.gender" class="err">{{ errors.gender[0] }}</p>
@@ -136,7 +136,7 @@ function closeSuccess() {
                     </div>
                 </div>
 
-                <button class="mt-2 rounded-full bg-pine-700 py-3 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
+                <button class="mt-2 rounded-xl bg-pine-700 py-3 font-bold text-white transition hover:bg-pine-800" :disabled="loading">
                     {{ loading ? t('common.loading') : t('auth.finish') }}
                 </button>
 

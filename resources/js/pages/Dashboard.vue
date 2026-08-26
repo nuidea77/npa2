@@ -4,6 +4,7 @@ import axios from '../bootstrap';
 import { t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
 import Modal from '../components/Modal.vue';
+import Icon from '../components/Icon.vue';
 import RegButton from '../components/RegButton.vue';
 
 const auth = useAuthStore();
@@ -96,14 +97,14 @@ function ytEmbed(url) {
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <img v-if="data.user.photo" :src="data.user.photo" class="h-20 w-20 rounded-full object-cover" alt="" />
-                            <div v-else class="flex h-20 w-20 items-center justify-center rounded-full bg-pine-100 text-4xl">
-                                {{ data.user.gender === 'female' ? '👩' : '👨' }}
+                            <div v-else class="flex h-20 w-20 items-center justify-center rounded-full bg-pine-100 text-pine-800">
+                                <Icon name="user" :size="38" />
                             </div>
                             <button
                                 class="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-pine-700 text-xs text-white shadow hover:bg-pine-800"
                                 title="Зураг оруулах"
                                 @click="photoInput.click()"
-                            >📷</button>
+                            ><Icon name="camera" :size="14" /></button>
                             <input ref="photoInput" type="file" accept="image/*" class="hidden" @change="uploadPhoto" />
                         </div>
                         <div>
@@ -122,14 +123,14 @@ function ytEmbed(url) {
                     </dl>
 
                     <button class="mt-5 w-full rounded-full border border-pine-200 py-2 text-sm font-semibold text-pine-700 transition hover:bg-pine-50" @click="showEdit = true">
-                        ✏️ {{ t('dash.editProfile') }}
+                        {{ t('dash.editProfile') }}
                     </button>
                 </section>
 
                 <!-- NPA тамга -->
                 <section class="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm lg:col-span-2">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-lg font-bold text-pine-900">🎖️ {{ t('dash.stamps') }}</h2>
+                        <h2 class="flex items-center gap-2 text-lg font-bold text-pine-900"><Icon name="award" :size="21" class="text-pine-700" /> {{ t('dash.stamps') }}</h2>
                         <div class="flex gap-4 text-sm">
                             <div><span class="font-bold text-pine-700">{{ data.stamps.current_year }}</span> <span class="text-stone-400">{{ t('dash.stampsYear') }}</span></div>
                             <div><span class="font-bold text-pine-700">{{ data.stamps.total }}</span> <span class="text-stone-400">{{ t('dash.stampsTotal') }}</span></div>
@@ -163,7 +164,7 @@ function ytEmbed(url) {
 
                 <!-- Сургалт -->
                 <section class="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm lg:col-span-2">
-                    <h2 class="text-lg font-bold text-pine-900">🎓 {{ t('dash.trainings') }}</h2>
+                    <h2 class="flex items-center gap-2 text-lg font-bold text-pine-900"><Icon name="graduation" :size="21" class="text-pine-700" /> {{ t('dash.trainings') }}</h2>
                     <div v-if="!data.trainings.length" class="mt-4 rounded-xl bg-stone-50 p-5 text-sm text-stone-500">{{ t('common.empty') }}</div>
                     <div v-else class="mt-4 grid gap-4 md:grid-cols-2">
                         <div v-for="tr in data.trainings" :key="tr.id" class="overflow-hidden rounded-xl border border-stone-100">
@@ -171,7 +172,7 @@ function ytEmbed(url) {
                                 <iframe class="h-full w-full" :src="ytEmbed(tr.url)" :title="tr.title" frameborder="0" allowfullscreen></iframe>
                             </div>
                             <img v-else-if="tr.type === 'image'" :src="tr.url" :alt="tr.title" class="h-40 w-full object-cover" />
-                            <a v-else :href="tr.url" target="_blank" class="flex h-28 items-center justify-center bg-red-50 text-4xl">📄</a>
+                            <a v-else :href="tr.url" target="_blank" class="flex h-28 items-center justify-center bg-sand-100 text-pine-800"><Icon name="file-text" :size="40" /></a>
                             <div class="p-3">
                                 <h3 class="text-sm font-bold text-stone-800">{{ tr.title }}</h3>
                                 <p class="mt-1 text-xs text-stone-500">{{ tr.summary }}</p>
@@ -185,7 +186,7 @@ function ytEmbed(url) {
                 <!-- Мэдээлэл: удахгүй болох арга хэмжээ + миний бүртгэлүүд -->
                 <section class="space-y-6">
                     <div class="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
-                        <h2 class="text-lg font-bold text-pine-900">📅 {{ t('dash.events') }}</h2>
+                        <h2 class="flex items-center gap-2 text-lg font-bold text-pine-900"><Icon name="calendar" :size="21" class="text-pine-700" /> {{ t('dash.events') }}</h2>
                         <div v-if="!data.events.length" class="mt-4 rounded-xl bg-stone-50 p-4 text-sm text-stone-500">{{ t('common.empty') }}</div>
                         <div v-for="e in data.events" :key="e.id" class="mt-4 rounded-xl border border-stone-100 p-4">
                             <h3 class="text-sm font-bold text-stone-800">{{ e.title }}</h3>
@@ -195,7 +196,7 @@ function ytEmbed(url) {
                     </div>
 
                     <div class="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
-                        <h2 class="text-lg font-bold text-pine-900">📝 {{ t('dash.myRegs') }}</h2>
+                        <h2 class="flex items-center gap-2 text-lg font-bold text-pine-900"><Icon name="edit" :size="21" class="text-pine-700" /> {{ t('dash.myRegs') }}</h2>
                         <div v-if="!data.my_registrations.length" class="mt-4 rounded-xl bg-stone-50 p-4 text-sm text-stone-500">{{ t('common.empty') }}</div>
                         <ul v-else class="mt-3 space-y-2 text-sm">
                             <li v-for="r in data.my_registrations" :key="r.id" class="flex justify-between gap-2 rounded-xl bg-stone-50 px-3 py-2">
@@ -205,8 +206,8 @@ function ytEmbed(url) {
                         </ul>
                     </div>
 
-                    <router-link to="/help#feedback" class="block rounded-2xl bg-sand-100 p-5 text-center font-semibold text-sand-900 transition hover:bg-sand-200">
-                        💬 {{ t('dash.feedback') }}
+                    <router-link to="/help#feedback" class="block rounded-2xl border-2 border-pine-600 p-5 text-center font-bold text-pine-700 transition hover:bg-pine-50">
+                        {{ t('dash.feedback') }}
                     </router-link>
                 </section>
             </div>

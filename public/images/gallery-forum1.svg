@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
-  <rect width="800" height="500" fill="#dfeee4"/>
-  <rect x="90" y="90" width="620" height="200" rx="14" fill="#295843"/>
-  <text x="400" y="170" font-family="Arial" font-size="26" font-weight="bold" fill="#f2f8f4" text-anchor="middle">Илтгэл, хэлэлцүүлэг</text>
-  <text x="400" y="215" font-family="Arial" font-size="17" fill="#96c4ab" text-anchor="middle">30 байгаль хамгаалагч, мэргэжилтэн</text>
-  <g fill="#468968"><circle cx="200" cy="380" r="30"/><circle cx="300" cy="380" r="30"/><circle cx="400" cy="380" r="30"/><circle cx="500" cy="380" r="30"/><circle cx="600" cy="380" r="30"/></g>
+  <rect width="800" height="500" fill="#e9ebde"/>
+  <rect x="90" y="90" width="620" height="200" rx="14" fill="#4a5540"/>
+  <text x="400" y="170" font-family="Arial" font-size="26" font-weight="bold" fill="#f6f6f0" text-anchor="middle">Илтгэл, хэлэлцүүлэг</text>
+  <text x="400" y="215" font-family="Arial" font-size="17" fill="#b8c19e" text-anchor="middle">30 байгаль хамгаалагч, мэргэжилтэн</text>
+  <g fill="#78865e"><circle cx="200" cy="380" r="30"/><circle cx="300" cy="380" r="30"/><circle cx="400" cy="380" r="30"/><circle cx="500" cy="380" r="30"/><circle cx="600" cy="380" r="30"/></g>
 </svg>

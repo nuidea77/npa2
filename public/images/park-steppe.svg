@@ -3,10 +3,10 @@
     <stop offset="0" stop-color="#a8cfe0"/><stop offset="1" stop-color="#eef6ee"/>
   </linearGradient></defs>
   <rect width="800" height="500" fill="url(#s)"/>
-  <circle cx="640" cy="100" r="46" fill="#f3c14b" opacity="0.9"/>
+  <circle cx="640" cy="100" r="46" fill="#dabf6b" opacity="0.9"/>
   
   <path d="M0 400 Q400 330 800 400 Z" fill="#8fb06a"/>
-  <path d="M0 400 L160 300 L320 400 Z" fill="#468968" opacity="0.7"/>
+  <path d="M0 400 L160 300 L320 400 Z" fill="#78865e" opacity="0.7"/>
   <g fill="#5d4a36">
     <path d="M520 350 q6 -18 16 -6 l4 -10 q8 -10 14 2 l14 -2 q10 2 6 12 l-6 10 h-40 z"/>
     <rect x="528" y="358" width="5" height="22"/><rect x="548" y="358" width="5" height="22"/>

@@ -1,6 +1,7 @@
 <script setup>
 import { t } from '../i18n';
 import PageHero from '../components/PageHero.vue';
+import Icon from '../components/Icon.vue';
 </script>
 
 <template>
@@ -23,13 +24,13 @@ import PageHero from '../components/PageHero.vue';
             </div>
 
             <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                <div class="rounded-2xl border border-pine-100 bg-pine-50 p-6">
-                    <div class="text-3xl">🏞️</div>
+                <div class="rounded-2xl border border-pine-200 bg-pine-50 p-6">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-pine-100 text-pine-800"><Icon name="mountain" :size="22" /></div>
                     <h3 class="mt-2 font-bold text-pine-900">Yosemite National Park ↔ Хөвсгөл нуурын БЦГ</h3>
                     <p class="mt-2 text-sm text-stone-600">2015 онд АНУ-ын Yosemite парктай эгч дүү парк болсон.</p>
                 </div>
-                <div class="rounded-2xl border border-sand-200 bg-sand-50 p-6">
-                    <div class="text-3xl">🤝</div>
+                <div class="rounded-2xl border border-sand-300 bg-sand-100 p-6">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-sand-200 text-sand-800"><Icon name="globe" :size="22" /></div>
                     <h3 class="mt-2 font-bold text-sand-900">Хамтын ажиллагаа өргөжсөөр</h3>
                     <p class="mt-2 text-sm text-stone-600">
                         Шинэ эгч дүүс паркийн харилцаа тогтоох сонирхолтой Хамгаалалтын захиргаад бидэнтэй холбогдоорой:

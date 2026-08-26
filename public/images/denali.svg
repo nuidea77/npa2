@@ -6,5 +6,5 @@
   <path d="M420 420 L620 200 L800 420 Z" fill="#7d94b8"/>
   <path d="M585 240 L620 200 L655 240 L635 262 L605 262 Z" fill="#f7fafd"/>
   <rect y="400" width="800" height="100" fill="#3f5d68"/>
-  <g fill="#24483a"><path d="M120 360 l22 44 h-44 z M120 384 l28 56 h-56 z"/><path d="M690 360 l22 44 h-44 z M690 384 l28 56 h-56 z"/></g>
+  <g fill="#3c4534"><path d="M120 360 l22 44 h-44 z M120 384 l28 56 h-56 z"/><path d="M690 360 l22 44 h-44 z M690 384 l28 56 h-56 z"/></g>
 </svg>

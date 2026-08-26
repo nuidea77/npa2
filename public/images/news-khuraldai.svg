@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
-  <rect width="800" height="500" fill="#295843"/>
-  <rect x="60" y="80" width="680" height="300" rx="16" fill="#f2f8f4"/>
-  <rect x="60" y="80" width="680" height="70" rx="16" fill="#1e3b2f"/>
-  <text x="400" y="125" font-family="Arial" font-size="30" font-weight="bold" fill="#f2f8f4" text-anchor="middle">ХУРАЛДАЙ 2024</text>
-  <text x="400" y="205" font-family="Arial" font-size="20" fill="#295843" text-anchor="middle">«Тусгай Хамгаалалттай Газар –</text>
-  <text x="400" y="235" font-family="Arial" font-size="20" fill="#295843" text-anchor="middle">Үндэсний бахархал»</text>
-  <g fill="#468968"><circle cx="250" cy="310" r="22"/><circle cx="330" cy="310" r="22"/><circle cx="410" cy="310" r="22"/><circle cx="490" cy="310" r="22"/><circle cx="570" cy="310" r="22"/></g>
-  <rect x="0" y="420" width="800" height="80" fill="#1e3b2f"/>
-  <text x="400" y="468" font-family="Arial" font-size="20" fill="#96c4ab" text-anchor="middle">National Park Academy</text>
+  <rect width="800" height="500" fill="#4a5540"/>
+  <rect x="60" y="80" width="680" height="300" rx="16" fill="#f6f6f0"/>
+  <rect x="60" y="80" width="680" height="70" rx="16" fill="#2c3326"/>
+  <text x="400" y="125" font-family="Arial" font-size="30" font-weight="bold" fill="#f6f6f0" text-anchor="middle">ХУРАЛДАЙ 2024</text>
+  <text x="400" y="205" font-family="Arial" font-size="20" fill="#4a5540" text-anchor="middle">«Тусгай Хамгаалалттай Газар –</text>
+  <text x="400" y="235" font-family="Arial" font-size="20" fill="#4a5540" text-anchor="middle">Үндэсний бахархал»</text>
+  <g fill="#78865e"><circle cx="250" cy="310" r="22"/><circle cx="330" cy="310" r="22"/><circle cx="410" cy="310" r="22"/><circle cx="490" cy="310" r="22"/><circle cx="570" cy="310" r="22"/></g>
+  <rect x="0" y="420" width="800" height="80" fill="#2c3326"/>
+  <text x="400" y="468" font-family="Arial" font-size="20" fill="#b8c19e" text-anchor="middle">National Park Academy</text>
 </svg>

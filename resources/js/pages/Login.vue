@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from '../bootstrap';
 import { t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
+import Logo from '../components/Logo.vue';
 
 const auth = useAuthStore();
 const route = useRoute();
@@ -33,7 +34,7 @@ async function submit() {
     <div class="mx-auto flex max-w-md flex-col px-4 py-16">
         <div class="rounded-2xl border border-stone-100 bg-white p-8 shadow-sm">
             <div class="text-center">
-                <img src="/images/logo.svg" alt="NPA" class="mx-auto h-14 w-14" />
+                <Logo :show-text="false" emblem-class="mx-auto h-16 w-auto" class="text-pine-700" />
                 <h1 class="mt-3 text-xl font-bold text-pine-900">{{ t('auth.loginTitle') }}</h1>
                 <p class="mt-1 text-sm text-stone-500">National Park Academy</p>
             </div>
@@ -53,7 +54,7 @@ async function submit() {
                     <input v-model="form.remember" type="checkbox" class="h-4 w-4 rounded border-stone-300 accent-pine-700" />
                     {{ t('auth.remember') }}
                 </label>
-                <button class="rounded-full bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
+                <button class="rounded-xl bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
                     {{ loading ? t('common.loading') : t('auth.loginTitle') }}
                 </button>
             </form>

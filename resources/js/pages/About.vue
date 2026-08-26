@@ -2,6 +2,7 @@
 import { locale, t } from '../i18n';
 import { aboutText, mission, team, timeline } from '../content/about';
 import PageHero from '../components/PageHero.vue';
+import Icon from '../components/Icon.vue';
 </script>
 
 <template>
@@ -45,8 +46,8 @@ import PageHero from '../components/PageHero.vue';
                         class="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm"
                     >
                         <div class="flex items-center gap-4">
-                            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-pine-100 text-3xl">
-                                {{ m.gender === 'female' ? '👩' : '👨' }}
+                            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-pine-100 text-pine-800">
+                                <Icon name="user" :size="30" />
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-pine-900">{{ m.name }}</h3>

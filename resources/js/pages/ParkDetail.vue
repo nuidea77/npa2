@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from '../bootstrap';
 import { t } from '../i18n';
+import Icon from '../components/Icon.vue';
 
 const route = useRoute();
 const park = ref(null);
@@ -10,16 +11,16 @@ const siblings = ref([]);
 const loading = ref(true);
 
 const sections = computed(() => park.value ? [
-    { key: 'intro', title: 'Танилцуулга', icon: '📖', text: park.value.intro },
-    { key: 'highlights', title: 'Онцолж буй байгалийн тогтоц газар', icon: '⛰️', text: park.value.highlights },
-    { key: 'animals', title: 'Амьтад', icon: '🦅', text: park.value.animals },
-    { key: 'geography', title: 'Газар зүйн онцлог', icon: '🗺️', text: park.value.geography },
-    { key: 'locals', title: 'Нутгийн зон олон', icon: '🏡', text: park.value.locals },
-    { key: 'get_there', title: 'Хэрхэн хүрч очих вэ?', icon: '🚙', text: park.value.get_there },
-    { key: 'travel', title: 'Хэрхэн аялах вэ?', icon: '🥾', text: park.value.travel },
-    { key: 'services', title: 'Аялал жуулчлалын үйлчилгээ', icon: '🏕️', text: park.value.services },
-    { key: 'warnings', title: 'Анхааруулга, уриалга', icon: '⚠️', text: park.value.warnings },
-    { key: 'admin_info', title: 'Хамгаалалтын захиргаа', icon: '🏢', text: park.value.admin_info },
+    { key: 'intro', title: 'Танилцуулга', icon: 'book-open', text: park.value.intro },
+    { key: 'highlights', title: 'Онцолж буй байгалийн тогтоц газар', icon: 'mountain', text: park.value.highlights },
+    { key: 'animals', title: 'Амьтад', icon: 'binoculars', text: park.value.animals },
+    { key: 'geography', title: 'Газар зүйн онцлог', icon: 'map', text: park.value.geography },
+    { key: 'locals', title: 'Нутгийн зон олон', icon: 'home', text: park.value.locals },
+    { key: 'get_there', title: 'Хэрхэн хүрч очих вэ?', icon: 'car', text: park.value.get_there },
+    { key: 'travel', title: 'Хэрхэн аялах вэ?', icon: 'compass', text: park.value.travel },
+    { key: 'services', title: 'Аялал жуулчлалын үйлчилгээ', icon: 'tent', text: park.value.services },
+    { key: 'warnings', title: 'Анхааруулга, уриалга', icon: 'warning', text: park.value.warnings },
+    { key: 'admin_info', title: 'Хамгаалалтын захиргаа', icon: 'building', text: park.value.admin_info },
 ].filter((s) => s.text) : []);
 
 const mapUrl = computed(() => {
@@ -68,8 +69,8 @@ watch(() => route.params.id, load);
                     <!-- Мэдээллийн хэсгүүд -->
                     <div class="space-y-4 md:col-span-2">
                         <section v-for="s in sections" :key="s.key" class="rounded-2xl border border-stone-100 bg-white p-5 shadow-sm">
-                            <h2 class="flex items-center gap-2 font-bold text-pine-900">
-                                <span>{{ s.icon }}</span>{{ s.title }}
+                            <h2 class="flex items-center gap-2.5 font-bold text-pine-900">
+                                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-pine-100 text-pine-800"><Icon :name="s.icon" :size="17" /></span>{{ s.title }}
                             </h2>
                             <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-stone-600">{{ s.text }}</p>
                         </section>
@@ -77,13 +78,13 @@ watch(() => route.params.id, load);
 
                     <!-- Хажуугийн мэдээлэл -->
                     <aside class="space-y-4">
-                        <div v-if="park.org" class="rounded-2xl border border-pine-100 bg-pine-50 p-5">
+                        <div v-if="park.org" class="rounded-2xl border border-pine-200 bg-pine-50 p-5">
                             <h2 class="font-bold text-pine-900">Хамгаалалтын захиргаа</h2>
                             <div class="mt-3 space-y-2 text-sm text-stone-700">
                                 <div class="font-medium">{{ park.org.name }}</div>
-                                <div v-if="park.org.address">📍 {{ park.org.address }}</div>
-                                <div v-if="park.org.phone">📞 {{ park.org.phone }}</div>
-                                <div v-if="park.org.email">✉️ <a :href="'mailto:' + park.org.email" class="underline">{{ park.org.email }}</a></div>
+                                <div v-if="park.org.address" class="flex items-start gap-2"><Icon name="map-pin" :size="16" class="mt-0.5 shrink-0 text-pine-700" /> {{ park.org.address }}</div>
+                                <div v-if="park.org.phone" class="flex items-center gap-2"><Icon name="phone" :size="16" class="shrink-0 text-pine-700" /> {{ park.org.phone }}</div>
+                                <div v-if="park.org.email" class="flex items-center gap-2"><Icon name="mail" :size="16" class="shrink-0 text-pine-700" /> <a :href="'mailto:' + park.org.email" class="underline">{{ park.org.email }}</a></div>
                             </div>
                         </div>
 
@@ -92,8 +93,8 @@ watch(() => route.params.id, load);
                             :href="mapUrl"
                             target="_blank"
                             rel="noopener"
-                            class="block rounded-2xl bg-pine-700 p-5 text-center font-bold text-white transition hover:bg-pine-800"
-                        >🗺️ {{ t('common.viewOnMap') }}</a>
+                            class="flex items-center justify-center gap-2.5 rounded-2xl bg-pine-700 p-5 text-center font-bold text-white transition hover:bg-pine-800"
+                        ><Icon name="map" :size="20" /> {{ t('common.viewOnMap') }}</a>
 
                         <div v-if="siblings.length" class="rounded-2xl border border-stone-100 bg-white p-5 shadow-sm">
                             <h2 class="text-sm font-bold text-pine-900">Тухайн ХЗ-нд харьяалагдах бусад ТХГ</h2>

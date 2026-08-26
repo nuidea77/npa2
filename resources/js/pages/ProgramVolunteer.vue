@@ -4,6 +4,7 @@ import axios from '../bootstrap';
 import { t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
 import PageHero from '../components/PageHero.vue';
+import Icon from '../components/Icon.vue';
 import Modal from '../components/Modal.vue';
 
 const auth = useAuthStore();
@@ -11,15 +12,15 @@ const aimags = computed(() => auth.settings?.aimags ?? []);
 const durations = computed(() => auth.settings?.volunteer_durations ?? []);
 
 const duties = [
-    { icon: '🛤️', title: 'Зам арчилгаа', items: ['Замд унасан мод, хог хаягдлыг цэвэрлэхэд туслах', 'Хүний гарц, шат болон бусад дэд бүтцийг барих, арчлахад туслах', 'Элэгдэл эвдрэл засах, аялагчдад зориулан замыг аюулгүй болгох'] },
-    { icon: '🦌', title: 'Зэрлэг амьтдыг ажиглах', items: ['Амьтны популяцын талаарх өгөгдөл цуглуулахад туслах зорилгоор зэрлэг амьтдыг ажиглах, хянах', 'Шувуу тоолох болон устаж үгүй болж буй амьтдыг хянахад туслах'] },
-    { icon: '📚', title: 'Байгаль орчны боловсрол', items: ['Аялагчдад зориулан аялал, алхалт эсвэл сургалт явуулах', 'ТХГ-ын түүх, экологи болон хамгаалах үйл ажиллагааны талаар мэдээлэл өгөх', 'Байгаль орчныг хамгаалах талаар сурагчдад сургалт орох'] },
-    { icon: '🌿', title: 'Амьдрах орчныг сэргээх', items: ['Зэрлэг ургамал түүх, устгах', 'Экосистемийг сэргээхийн тулд төрөлх ургамлыг дахин тарих', 'Гол цэвэрлэх болон намаг сэргээх төсөлд оролцох'] },
-    { icon: 'ℹ️', title: 'Гийчдийн үйлчилгээ', items: ['Аялагч нарт зориулсан мэдээллийн төвд ажиллах', 'Отоглох цэгтэй холбоотой асуултад хариулах, зааварчилгаа өгөх'] },
-    { icon: '🏛️', title: 'Соёлын өвийг хадгалах', items: ['Түүхэн байгууламж, эд өлгийн зүйлсийг хадгалахад туслах', 'Соёлын өвийг баримтжуулах, хадгалахад туслах'] },
-    { icon: '🚁', title: 'Хайгуул ба аврах үйл ажиллагааны тусламж', items: ['Байгаль хамгаалагчийн хайгуул, аврах ажиллагааны үед дэмжлэг үзүүлэх (тусгай сургалт шаардлагатай)', 'Осол гарах үед анхны тусламж эсвэл яаралтай хариу үзүүлэхэд оролцох'] },
-    { icon: '🔬', title: 'Шинжлэх ухааны судалгааны туслалцаа', items: ['Биологичид, экологичид, геологичдод туслах', 'Дээж, өгөгдөл цуглуулах, туршилтуудыг хийхэд оролцох'] },
-    { icon: '⛺', title: 'Отоглох цэгийн зохицуулагч', items: ['Отоглох цэгийн засвар үйлчилгээ хийх, аялагчдыг угтан авах, отоглох газар олоход нь туслах', 'Отоглох цэгийн дүрмийг мөрдөж буй эсэхийг шалгах, төлбөр цуглуулах, засвар үйлчилгээний ажлуудад туслах'] },
+    { icon: 'map', title: 'Зам арчилгаа', items: ['Замд унасан мод, хог хаягдлыг цэвэрлэхэд туслах', 'Хүний гарц, шат болон бусад дэд бүтцийг барих, арчлахад туслах', 'Элэгдэл эвдрэл засах, аялагчдад зориулан замыг аюулгүй болгох'] },
+    { icon: 'binoculars', title: 'Зэрлэг амьтдыг ажиглах', items: ['Амьтны популяцын талаарх өгөгдөл цуглуулахад туслах зорилгоор зэрлэг амьтдыг ажиглах, хянах', 'Шувуу тоолох болон устаж үгүй болж буй амьтдыг хянахад туслах'] },
+    { icon: 'book', title: 'Байгаль орчны боловсрол', items: ['Аялагчдад зориулан аялал, алхалт эсвэл сургалт явуулах', 'ТХГ-ын түүх, экологи болон хамгаалах үйл ажиллагааны талаар мэдээлэл өгөх', 'Байгаль орчныг хамгаалах талаар сурагчдад сургалт орох'] },
+    { icon: 'sprout', title: 'Амьдрах орчныг сэргээх', items: ['Зэрлэг ургамал түүх, устгах', 'Экосистемийг сэргээхийн тулд төрөлх ургамлыг дахин тарих', 'Гол цэвэрлэх болон намаг сэргээх төсөлд оролцох'] },
+    { icon: 'chat', title: 'Гийчдийн үйлчилгээ', items: ['Аялагч нарт зориулсан мэдээллийн төвд ажиллах', 'Отоглох цэгтэй холбоотой асуултад хариулах, зааварчилгаа өгөх'] },
+    { icon: 'building', title: 'Соёлын өвийг хадгалах', items: ['Түүхэн байгууламж, эд өлгийн зүйлсийг хадгалахад туслах', 'Соёлын өвийг баримтжуулах, хадгалахад туслах'] },
+    { icon: 'warning', title: 'Хайгуул ба аврах үйл ажиллагааны тусламж', items: ['Байгаль хамгаалагчийн хайгуул, аврах ажиллагааны үед дэмжлэг үзүүлэх (тусгай сургалт шаардлагатай)', 'Осол гарах үед анхны тусламж эсвэл яаралтай хариу үзүүлэхэд оролцох'] },
+    { icon: 'eye', title: 'Шинжлэх ухааны судалгааны туслалцаа', items: ['Биологичид, экологичид, геологичдод туслах', 'Дээж, өгөгдөл цуглуулах, туршилтуудыг хийхэд оролцох'] },
+    { icon: 'tent', title: 'Отоглох цэгийн зохицуулагч', items: ['Отоглох цэгийн засвар үйлчилгээ хийх, аялагчдыг угтан авах, отоглох газар олоход нь туслах', 'Отоглох цэгийн дүрмийг мөрдөж буй эсэхийг шалгах, төлбөр цуглуулах, засвар үйлчилгээний ажлуудад туслах'] },
 ];
 
 // --- Хайлт ---
@@ -80,15 +81,17 @@ async function submit() {
 
         <div class="mx-auto max-w-6xl px-4 py-12">
             <p class="rounded-2xl border border-sand-200 bg-sand-50 p-5 text-sm text-sand-900">
-                ⚠️ Сайн дурын байгаль хамгаалагчийн хийх ажил үүрэг нь тухайн сонгосон Хамгаалалтын захиргааны хэрэгцээ,
+                Сайн дурын байгаль хамгаалагчийн хийх ажил үүрэг нь тухайн сонгосон Хамгаалалтын захиргааны хэрэгцээ,
                 шаардлагаас хамаарч янз бүр байх боломжтойг анхаарна уу.
             </p>
 
             <!-- Үндсэн үүрэг -->
             <h2 class="mt-10 text-xl font-bold text-pine-900 md:text-2xl">Үндсэн үүрэг</h2>
             <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <div v-for="d in duties" :key="d.title" class="rounded-2xl border border-stone-100 bg-white p-5 shadow-sm">
-                    <div class="text-2xl">{{ d.icon }}</div>
+                <div v-for="d in duties" :key="d.title" class="rounded-2xl border border-stone-200 bg-white p-5">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-pine-100 text-pine-800">
+                        <Icon :name="d.icon" :size="22" />
+                    </div>
                     <h3 class="mt-2 font-bold text-stone-800">{{ d.title }}</h3>
                     <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-stone-500">
                         <li v-for="(it, i) in d.items" :key="i">{{ it }}</li>
@@ -122,16 +125,16 @@ async function submit() {
                     <div v-for="org in results" :key="org.id" class="rounded-2xl border border-stone-100 bg-white p-5 shadow-sm">
                         <h3 class="font-bold text-pine-900">{{ org.name }}</h3>
                         <p class="mt-1 text-sm text-stone-500">{{ org.intro }}</p>
-                        <div class="mt-3 space-y-1 text-sm text-stone-600">
-                            <div>📍 {{ org.address }}</div>
-                            <div>📞 {{ org.phone }}</div>
-                            <div>✉️ {{ org.email }}</div>
+                        <div class="mt-3 space-y-1.5 text-sm text-stone-600">
+                            <div class="flex items-start gap-2"><Icon name="map-pin" :size="16" class="mt-0.5 shrink-0 text-pine-600" /> {{ org.address }}</div>
+                            <div class="flex items-center gap-2"><Icon name="phone" :size="16" class="shrink-0 text-pine-600" /> {{ org.phone }}</div>
+                            <div class="flex items-center gap-2"><Icon name="mail" :size="16" class="shrink-0 text-pine-600" /> {{ org.email }}</div>
                             <div v-if="org.parks?.length" class="text-xs text-stone-400">
                                 ТХГ: {{ org.parks.map((p) => p.name).join(', ') }}
                             </div>
                         </div>
                         <button
-                            class="mt-4 rounded-full bg-sand-400 px-5 py-2 text-sm font-bold text-pine-950 transition hover:bg-sand-300"
+                            class="mt-4 rounded-xl bg-pine-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-pine-800"
                             @click="openForm(org)"
                         >Хүсэлт илгээх</button>
                     </div>

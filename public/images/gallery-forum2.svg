@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
   <rect width="800" height="500" fill="#f4ead6"/>
   <rect x="140" y="80" width="520" height="300" rx="14" fill="#fff" stroke="#d1a055" stroke-width="3"/>
-  <circle cx="400" cy="180" r="52" fill="#468968"/>
-  <path d="M372 200 L392 172 L404 186 L412 176 L428 200 Z" fill="#f2f8f4"/>
-  <text x="400" y="290" font-family="Arial" font-size="22" font-weight="bold" fill="#295843" text-anchor="middle">Сертификат гардуулалт</text>
+  <circle cx="400" cy="180" r="52" fill="#78865e"/>
+  <path d="M372 200 L392 172 L404 186 L412 176 L428 200 Z" fill="#f6f6f0"/>
+  <text x="400" y="290" font-family="Arial" font-size="22" font-weight="bold" fill="#4a5540" text-anchor="middle">Сертификат гардуулалт</text>
   <text x="400" y="330" font-family="Arial" font-size="15" fill="#93552e" text-anchor="middle">NPA · 2024.04.25-26</text>
 </svg>

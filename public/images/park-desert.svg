@@ -3,7 +3,7 @@
     <stop offset="0" stop-color="#f0d9a8"/><stop offset="1" stop-color="#fbf1dc"/>
   </linearGradient></defs>
   <rect width="800" height="500" fill="url(#s)"/>
-  <circle cx="640" cy="100" r="46" fill="#f3c14b" opacity="0.9"/>
+  <circle cx="640" cy="100" r="46" fill="#dabf6b" opacity="0.9"/>
   
   <path d="M0 400 Q200 300 420 380 Q640 450 800 370 L800 400 Z" fill="#d1a055"/>
   <path d="M0 420 Q260 340 520 410 T800 400 L800 500 L0 500 Z" fill="#b06f35"/>

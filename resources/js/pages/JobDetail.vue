@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from '../bootstrap';
 import { t } from '../i18n';
+import Icon from '../components/Icon.vue';
 
 const route = useRoute();
 const job = ref(null);
@@ -53,13 +54,13 @@ onMounted(async () => {
                     </section>
                 </div>
                 <aside>
-                    <div class="card bg-pine-50">
+                    <div class="card border-pine-200 bg-pine-50">
                         <h2 class="card-h">Холбоо барих</h2>
-                        <div class="mt-3 space-y-2 text-sm text-stone-700">
-                            <div>🏢 {{ job.org?.name }}</div>
-                            <div v-if="job.org?.address">📍 {{ job.org.address }}</div>
-                            <div>📞 {{ job.phone || job.org?.phone }}</div>
-                            <div>✉️ <a :href="'mailto:' + (job.email || job.org?.email)" class="underline">{{ job.email || job.org?.email }}</a></div>
+                        <div class="mt-3 space-y-2.5 text-sm text-stone-700">
+                            <div class="flex items-start gap-2"><Icon name="building" :size="16" class="mt-0.5 shrink-0 text-pine-700" /> {{ job.org?.name }}</div>
+                            <div v-if="job.org?.address" class="flex items-start gap-2"><Icon name="map-pin" :size="16" class="mt-0.5 shrink-0 text-pine-700" /> {{ job.org.address }}</div>
+                            <div class="flex items-center gap-2"><Icon name="phone" :size="16" class="shrink-0 text-pine-700" /> {{ job.phone || job.org?.phone }}</div>
+                            <div class="flex items-center gap-2"><Icon name="mail" :size="16" class="shrink-0 text-pine-700" /> <a :href="'mailto:' + (job.email || job.org?.email)" class="underline">{{ job.email || job.org?.email }}</a></div>
                         </div>
                         <p class="mt-4 text-xs text-stone-500">
                             Материалаа дээрх хаягаар шууд илгээнэ үү — NPA вэбээр хүсэлт ирүүлэх шаардлагагүй.

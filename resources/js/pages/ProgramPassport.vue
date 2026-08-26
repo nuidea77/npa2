@@ -1,6 +1,7 @@
 <script setup>
 import { t } from '../i18n';
 import PageHero from '../components/PageHero.vue';
+import Icon from '../components/Icon.vue';
 </script>
 
 <template>
@@ -17,9 +18,9 @@ import PageHero from '../components/PageHero.vue';
                     паспорт дээрээ <strong>Тамга</strong> цуглуулах бөгөөд хамгийн олон тамга цуглуулж чадсан Хамгаалалтын
                     захиргааг Хуралдайн үеэр шалгаруулна.
                 </p>
-                <p class="rounded-2xl border border-sand-200 bg-sand-50 p-5 font-medium text-sand-900">
-                    🏆 Паспорт дээрээ хамгийн олон тамга цуглуулж чадсан Хамгаалалтын захиргааны төлөөлөл Хуралдайн үеэр
-                    шалгарч, <strong>Америкийн Нэгдсэн Улсын Тусгай хамгаалалттай газруудад туршлага судлах аяллын эзэн</strong> болно.
+                <p class="flex items-start gap-3 rounded-2xl border border-sand-300 bg-sand-100 p-5 font-medium text-sand-900">
+                    <Icon name="award" :size="24" class="mt-0.5 shrink-0 text-sand-800" /><span>Паспорт дээрээ хамгийн олон тамга цуглуулж чадсан Хамгаалалтын захиргааны төлөөлөл Хуралдайн үеэр
+                    шалгарч, <strong>Америкийн Нэгдсэн Улсын Тусгай хамгаалалттай газруудад туршлага судлах аяллын эзэн</strong> болно.</span>
                 </p>
             </div>
 
@@ -34,9 +35,9 @@ import PageHero from '../components/PageHero.vue';
                 </figure>
             </div>
 
-            <div class="mt-10 rounded-2xl bg-pine-50 p-6 text-sm text-pine-900">
-                💡 Нэвтэрсэн ТХГ-ын ажилтнууд өөрийн Хамгаалалтын захиргааны цуглуулсан тамгыг
-                <router-link to="/dashboard" class="font-semibold underline">Миний булан</router-link> хэсгээс харах боломжтой.
+            <div class="mt-10 flex items-start gap-3 rounded-2xl bg-pine-100 p-6 text-sm text-pine-900">
+                <Icon name="star" :size="20" class="mt-0.5 shrink-0" /><span>Нэвтэрсэн ТХГ-ын ажилтнууд өөрийн Хамгаалалтын захиргааны цуглуулсан тамгыг
+                <router-link to="/dashboard" class="font-semibold underline">Миний булан</router-link> хэсгээс харах боломжтой.</span>
             </div>
         </div>
     </div>

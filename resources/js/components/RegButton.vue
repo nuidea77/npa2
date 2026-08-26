@@ -29,21 +29,21 @@ function onClick() {
         <router-link
             v-if="event.reg_state === 'open'"
             :to="`/events/${event.id}/register`"
-            class="inline-block rounded-full bg-sand-400 px-6 py-2.5 text-sm font-bold text-pine-950 shadow transition hover:bg-sand-300"
+            class="inline-block rounded-xl bg-pine-700 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-pine-800"
         >{{ label || t('reg.open') }}</router-link>
 
         <button
             v-else-if="event.reg_state === 'soon'"
-            class="inline-block cursor-not-allowed rounded-full bg-stone-200 px-6 py-2.5 text-sm font-bold text-stone-500"
+            class="inline-block cursor-not-allowed rounded-xl bg-stone-200 px-6 py-2.5 text-sm font-bold text-stone-500"
             disabled
         >{{ t('reg.soon') }}</button>
 
         <button
             v-else
-            class="inline-block rounded-full px-6 py-2.5 text-sm font-bold shadow transition"
+            class="inline-block rounded-xl px-6 py-2.5 text-sm font-bold transition"
             :class="event.reg_state === 'closed'
                 ? 'bg-stone-300 text-stone-600 hover:bg-stone-200'
-                : 'bg-sand-200 text-sand-900 hover:bg-sand-100'"
+                : 'border-2 border-pine-600 text-pine-700 hover:bg-pine-50'"
             @click="onClick"
         >{{ label || t('reg.open') }}</button>
 

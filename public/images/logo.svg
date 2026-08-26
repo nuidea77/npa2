@@ -1,14 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
-  <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#8ec9a8"/><stop offset="1" stop-color="#dfeee4"/>
-    </linearGradient>
-  </defs>
-  <circle cx="48" cy="48" r="46" fill="url(#sky)" stroke="#1e3b2f" stroke-width="4"/>
-  <circle cx="64" cy="30" r="9" fill="#f3c14b"/>
-  <path d="M8 66 L34 34 L48 52 L58 40 L88 66 Z" fill="#295843"/>
-  <path d="M8 66 L34 34 L44 47 L30 66 Z" fill="#336d52"/>
-  <path d="M30 30 l4 8 h-8 z M30 36 l5 9 h-10 z" fill="#1e3b2f"/>
-  <rect x="8" y="66" width="80" height="10" rx="4" fill="#1e3b2f"/>
-  <text x="48" y="75" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f2f8f4" text-anchor="middle">NPA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 84" fill="none" stroke="#2c3326" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="4" y="4" width="112" height="76" rx="16"/>
+  <path d="M60 15v8M42 20l5 6M78 20l-5 6M30 33l8 3M90 33l-8 3"/>
+  <path d="M48 44a12 12 0 0 1 24 0"/>
+  <path d="M10 62c8-12 18-18 30-18 8 0 12 3 17 8"/>
+  <path d="M52 60c6-9 13-14 22-14 12 0 20 6 28 16"/>
+  <path d="M22 56l4-7 4 7M20 61l6-9 6 9M36 58l3.5-6 3.5 6"/>
+  <path d="M46 62c5 4 5 8-2 12M58 61c8 5 9 10 0 15"/>
+  <path d="M88 24c2-2.5 4-2.5 6 0M97 30c1.7-2 3.3-2 5 0"/>
 </svg>

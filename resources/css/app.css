@@ -7,28 +7,43 @@
 @theme {
     --font-sans: 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', Arial, ui-sans-serif, system-ui, sans-serif;
 
-    --color-pine-50: #f2f8f4;
-    --color-pine-100: #dfeee4;
-    --color-pine-200: #c1ddcc;
-    --color-pine-300: #96c4ab;
-    --color-pine-400: #68a585;
-    --color-pine-500: #468968;
-    --color-pine-600: #336d52;
-    --color-pine-700: #295843;
-    --color-pine-800: #234737;
-    --color-pine-900: #1e3b2f;
-    --color-pine-950: #0f211a;
+    /* Чидун ногоон — үндсэн брэнд өнгө (header, footer, товч) */
+    --color-pine-50: #f6f6f0;
+    --color-pine-100: #e9ebde;
+    --color-pine-200: #d5dac3;
+    --color-pine-300: #b8c19e;
+    --color-pine-400: #97a37a;
+    --color-pine-500: #78865e;
+    --color-pine-600: #5d6a48;
+    --color-pine-700: #4a5540;
+    --color-pine-800: #3c4534;
+    --color-pine-900: #2c3326;
+    --color-pine-950: #20261c;
 
-    --color-sand-50: #fbf7ef;
-    --color-sand-100: #f4ead6;
-    --color-sand-200: #e8d3ab;
-    --color-sand-300: #dbb87a;
-    --color-sand-400: #d1a055;
-    --color-sand-500: #c78a40;
-    --color-sand-600: #b06f35;
-    --color-sand-700: #93552e;
-    --color-sand-800: #78452b;
-    --color-sand-900: #633a26;
+    /* Цайвар шаргал / cream — CTA товч, онцлох дэвсгэр */
+    --color-sand-50: #faf9f4;
+    --color-sand-100: #f3f1e7;
+    --color-sand-200: #e7e4d4;
+    --color-sand-300: #d8d4bf;
+    --color-sand-400: #efede2;
+    --color-sand-500: #b9b49a;
+    --color-sand-600: #97927a;
+    --color-sand-700: #767257;
+    --color-sand-800: #5b5843;
+    --color-sand-900: #454334;
+
+    /* Дулаан саарал-ногоон neutral (stone-ыг брэндэд тааруулав) */
+    --color-stone-50: #f7f6f1;
+    --color-stone-100: #edece3;
+    --color-stone-200: #dedcd0;
+    --color-stone-300: #c6c5b6;
+    --color-stone-400: #a3a394;
+    --color-stone-500: #7d7d6f;
+    --color-stone-600: #5f6053;
+    --color-stone-700: #4a4b40;
+    --color-stone-800: #363830;
+    --color-stone-900: #272921;
+    --color-stone-950: #1a1c16;
 }
 
 html {
