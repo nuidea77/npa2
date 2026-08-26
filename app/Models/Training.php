@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\AsUnicodeJson;
 use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
@@ -10,7 +11,7 @@ class Training extends Model
 
     protected $casts = [
         'published_at' => 'date:Y-m-d',
-        'positions' => 'array',
-        'regions' => 'array',
+        'positions' => AsUnicodeJson::class,
+        'regions' => AsUnicodeJson::class,
     ];
 }

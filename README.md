@@ -11,7 +11,7 @@
 | Backend | Laravel 13 (PHP 8.4), session-д суурилсан auth |
 | Frontend | Vue 3 SPA (Vue Router, Pinia), Vite |
 | Загвар | Tailwind CSS v4 |
-| Өгөгдлийн сан | SQLite (MySQL/PostgreSQL руу .env-ээс шилжүүлж болно) |
+| Өгөгдлийн сан | MySQL 8 / MariaDB 10.6+ (хөгжүүлэлтэд SQLite-руу .env-ээс шилжүүлж болно) |
 
 ## Суулгах заавар
 
@@ -24,17 +24,23 @@ npm install
 cp .env.example .env
 php artisan key:generate
 
-# 3. Өгөгдлийн сан (SQLite) + жишээ өгөгдөл
-touch database/database.sqlite
+# 3. MySQL өгөгдлийн сан үүсгэх
+mysql -u root -p -e "CREATE DATABASE npa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'npa'@'localhost' IDENTIFIED BY 'npa_password';
+GRANT ALL PRIVILEGES ON npa.* TO 'npa'@'localhost';
+FLUSH PRIVILEGES;"
+# → .env доторх DB_DATABASE / DB_USERNAME / DB_PASSWORD-оо өөрийн утгаар тохируулна
+
+# 4. Хүснэгтүүд + жишээ өгөгдөл
 php artisan migrate --seed
 
-# 4. Файл хадгалалтын холбоос
+# 5. Файл хадгалалтын холбоос
 php artisan storage:link
 
-# 5. Frontend build
+# 6. Frontend build
 npm run build
 
-# 6. Ажиллуулах
+# 7. Ажиллуулах
 php artisan serve
 # → http://127.0.0.1:8000
 ```

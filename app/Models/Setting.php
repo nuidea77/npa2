@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Casts\AsUnicodeJson;
 use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
     protected $guarded = [];
 
-    protected $casts = ['value' => 'array'];
+    protected $casts = ['value' => AsUnicodeJson::class];
 
     public static function get(string $key, $default = null)
     {

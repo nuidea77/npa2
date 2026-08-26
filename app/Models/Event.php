@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\AsUnicodeJson;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -12,7 +13,7 @@ class Event extends Model
         'reg_start' => 'date:Y-m-d',
         'reg_end' => 'date:Y-m-d',
         'login_required' => 'boolean',
-        'questions' => 'array',
+        'questions' => AsUnicodeJson::class,
     ];
 
     public function registrations()

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\AsUnicodeJson;
 use Illuminate\Database\Eloquent\Model;
 
 class Org extends Model
@@ -9,8 +10,8 @@ class Org extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'aimags' => 'array',
-        'volunteer_durations' => 'array',
+        'aimags' => AsUnicodeJson::class,
+        'volunteer_durations' => AsUnicodeJson::class,
         'accepts_volunteers' => 'boolean',
     ];
 

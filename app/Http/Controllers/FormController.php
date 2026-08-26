@@ -52,7 +52,8 @@ class FormController extends Controller
         if ($request->filled('aimag')) {
             $aimag = $request->query('aimag');
             $q->where(function ($w) use ($aimag) {
-                $w->whereJsonContains('aimags', $aimag)
+                // JSON_CONTAINS нь MariaDB дээр кирилл утгад найдваргүй тул LIKE ашиглана
+                $w->whereRaw('CAST(aimags AS CHAR) LIKE ?', [$this->jsonLike($aimag)])
                   ->orWhereHas('parks', fn ($p) => $p->where('aimag', $aimag));
             });
         }
@@ -64,13 +65,19 @@ class FormController extends Controller
             });
         }
         if ($request->filled('duration')) {
-            $q->whereJsonContains('volunteer_durations', $request->query('duration'));
+            $q->whereRaw('CAST(volunteer_durations AS CHAR) LIKE ?', [$this->jsonLike($request->query('duration'))]);
         }
 
         $orgs = $q->with('parks:id,org_id,name,aimag')
             ->get(['id', 'name', 'region', 'aimags', 'phone', 'email', 'address', 'intro', 'volunteer_durations']);
 
         return response()->json(['orgs' => $orgs]);
+    }
+
+    /** JSON текст доторх `"утга"`-ыг LIKE-аар хайх хэв маяг */
+    private function jsonLike(string $value): string
+    {
+        return '%"' . addcslashes($value, '%_\\') . '"%';
     }
 
     /** Сайн дурын ажлын хүсэлт илгээх */
