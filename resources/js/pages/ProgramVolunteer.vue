@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import axios from '../bootstrap';
 import { t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
-import PageHero from '../components/PageHero.vue';
+import DetailHeader from '../components/DetailHeader.vue';
 import Icon from '../components/Icon.vue';
 import Modal from '../components/Modal.vue';
 
@@ -74,10 +74,7 @@ async function submit() {
 
 <template>
     <div>
-        <PageHero
-            :title="t('prog.volunteer')"
-            subtitle="Монгол улсын Тусгай хамгаалалттай газруудын Хамгаалалтын захиргаадад сайн дурын байгаль хамгаалагч хийх боломжийг олгож байна."
-        />
+        <DetailHeader :title="t('prog.volunteer')" back="/programs" />
 
         <div class="mx-auto max-w-6xl px-4 py-12">
             <p class="rounded-2xl border border-sand-200 bg-sand-50 p-5 text-sm text-sand-900">

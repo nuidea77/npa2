@@ -3,6 +3,8 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from '../bootstrap';
 import { locale, t } from '../i18n';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 
 const route = useRoute();
 const news = ref(null);
@@ -26,16 +28,22 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mx-auto max-w-3xl px-4 py-12">
-        <router-link to="/news" class="text-sm font-medium text-pine-600 hover:text-pine-800">← {{ t('common.back') }}</router-link>
+    <div>
+        <div v-if="loading" class="mx-auto max-w-5xl px-4 py-16 text-stone-400">{{ t('common.loading') }}</div>
 
-        <div v-if="loading" class="mt-6 text-stone-400">{{ t('common.loading') }}</div>
+        <template v-else-if="news">
+            <DetailHeader
+                :title="title"
+                back="/news"
+                :date="news.published_at?.replaceAll('-', '/')"
+            />
 
-        <article v-else-if="news">
-            <div class="mt-4 text-sm text-stone-400">{{ news.published_at }}</div>
-            <h1 class="mt-2 text-2xl font-bold leading-snug text-pine-900 md:text-3xl">{{ title }}</h1>
-            <img v-if="news.image" :src="news.image" :alt="title" class="mt-6 w-full rounded-2xl shadow" />
-            <div class="prose-mn mt-6 whitespace-pre-line leading-relaxed text-stone-700">{{ body }}</div>
-        </article>
+            <article class="mx-auto max-w-5xl px-4 pb-14">
+                <img v-if="news.image" :src="news.image" :alt="title" class="mt-6 h-72 w-full rounded-xl object-cover md:h-[420px]" />
+                <div class="prose-mn mx-auto mt-7 max-w-3xl whitespace-pre-line leading-relaxed text-stone-600">{{ body }}</div>
+            </article>
+
+            <FeedbackInline />
+        </template>
     </div>
 </template>

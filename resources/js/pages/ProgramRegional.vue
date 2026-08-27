@@ -1,7 +1,8 @@
 <script setup>
 import { t } from '../i18n';
 import { useEvents } from '../composables/useEvents';
-import PageHero from '../components/PageHero.vue';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 import RegButton from '../components/RegButton.vue';
 
 const { events, loading } = useEvents('regional');
@@ -9,7 +10,7 @@ const { events, loading } = useEvents('regional');
 
 <template>
     <div>
-        <PageHero :title="t('prog.regional')" />
+        <DetailHeader :title="t('prog.regional')" back="/programs" />
 
         <div class="mx-auto max-w-4xl px-4 py-12">
             <p class="prose-mn leading-relaxed text-stone-700">
@@ -31,5 +32,6 @@ const { events, loading } = useEvents('regional');
 
             <p v-else class="mt-8 rounded-2xl bg-stone-100 p-6 text-stone-500">{{ t('common.comingSoon') }}</p>
         </div>
+        <FeedbackInline />
     </div>
 </template>

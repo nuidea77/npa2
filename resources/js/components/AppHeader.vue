@@ -24,6 +24,10 @@ function closeAll() {
     mobileOpen.value = false;
 }
 
+function switchLang() {
+    setLocale(locale.value === 'mn' ? 'en' : 'mn');
+}
+
 async function logout() {
     await auth.logout();
     closeAll();
@@ -32,32 +36,22 @@ async function logout() {
 </script>
 
 <template>
-    <header class="sticky top-0 z-40 bg-pine-700 text-white shadow-md">
-        <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-4 px-4">
+    <header class="sticky top-0 z-40 bg-pine-700 text-white">
+        <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
             <!-- Лого -->
             <router-link to="/" class="group shrink-0" @click="closeAll">
-                <Logo img-class="h-10 w-auto transition-transform group-hover:scale-105" />
+                <Logo img-class="h-9 w-auto transition-transform group-hover:scale-105" />
             </router-link>
 
-            <!-- Үндсэн цэс (desktop) -->
-            <nav class="ml-4 hidden flex-1 items-center gap-0.5 lg:flex">
-                <!-- Бидний тухай -->
-                <div v-if="show('about')" class="relative">
-                    <button class="navlink" @click="toggle('about')">
-                        {{ t('nav.about') }} <span class="text-[10px] opacity-70">▾</span>
-                    </button>
-                    <div v-if="openMenu === 'about'" class="dropdown">
-                        <router-link class="dropitem" to="/about#mission" @click="closeAll">{{ t('nav.about.mission') }}</router-link>
-                        <router-link class="dropitem" to="/about#about" @click="closeAll">{{ t('nav.about.about') }}</router-link>
-                        <router-link class="dropitem" to="/about#timeline" @click="closeAll">{{ t('nav.about.timeline') }}</router-link>
-                        <router-link class="dropitem" to="/about#team" @click="closeAll">{{ t('nav.about.team') }}</router-link>
-                    </div>
-                </div>
+            <!-- Үндсэн цэс — баруун талд (Figma) -->
+            <nav class="ml-auto hidden items-center gap-1 lg:flex">
+                <router-link v-if="show('about')" class="navlink" to="/about" @click="closeAll">{{ t('nav.about') }}</router-link>
 
                 <!-- Хөтөлбөрүүд -->
                 <div v-if="show('programs')" class="relative">
-                    <button class="navlink" @click="toggle('programs')">
-                        {{ t('nav.programs') }} <span class="text-[10px] opacity-70">▾</span>
+                    <button class="navlink flex items-center gap-1" @click="toggle('programs')">
+                        {{ t('nav.programs') }}
+                        <svg class="h-3.5 w-3.5 opacity-80 transition-transform" :class="{ 'rotate-180': openMenu === 'programs' }" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
                     </button>
                     <div v-if="openMenu === 'programs'" class="dropdown w-96">
                         <router-link
@@ -73,12 +67,13 @@ async function logout() {
                     </div>
                 </div>
 
-                <!-- ТХГ-ууд -->
+                <!-- ТХГ -->
                 <div v-if="show('parks')" class="relative">
-                    <button class="navlink" @click="toggle('parks')">
-                        {{ t('nav.parks') }} <span class="text-[10px] opacity-70">▾</span>
+                    <button class="navlink flex items-center gap-1" @click="toggle('parks')">
+                        ТХГ
+                        <svg class="h-3.5 w-3.5 opacity-80 transition-transform" :class="{ 'rotate-180': openMenu === 'parks' }" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
                     </button>
-                    <div v-if="openMenu === 'parks'" class="dropdown w-72">
+                    <div v-if="openMenu === 'parks'" class="dropdown right-0 left-auto w-72">
                         <router-link class="dropitem" to="/parks" @click="closeAll">{{ t('nav.parks.all') }}</router-link>
                         <div class="my-1 border-t border-stone-100"></div>
                         <!-- Шаардлагын дагуу Нэвтрэх нь ТХГ цэсний доод хэсэгт байрлана -->
@@ -95,39 +90,24 @@ async function logout() {
                 <router-link v-if="show('help')" class="navlink" to="/help" @click="closeAll">{{ t('nav.help') }}</router-link>
             </nav>
 
-            <div class="ml-auto flex items-center gap-2.5">
-                <!-- Хэл сонгох -->
-                <div class="flex overflow-hidden rounded-lg border border-white/30 text-xs font-bold">
-                    <button
-                        class="px-2.5 py-1.5 transition"
-                        :class="locale === 'mn' ? 'bg-white text-pine-800' : 'text-white/80 hover:bg-white/10'"
-                        @click="setLocale('mn')"
-                    >MN</button>
-                    <button
-                        class="px-2.5 py-1.5 transition"
-                        :class="locale === 'en' ? 'bg-white text-pine-800' : 'text-white/80 hover:bg-white/10'"
-                        @click="setLocale('en')"
-                    >EN</button>
-                </div>
+            <div class="flex items-center gap-2" :class="{ 'ml-auto lg:ml-0': true }">
+                <!-- Хэл сонгох — дугуй товч (Figma) -->
+                <button
+                    class="flex h-10 min-w-10 items-center justify-center rounded-full border border-white/50 px-2 text-[11px] font-bold tracking-wide text-white transition hover:bg-white hover:text-pine-800"
+                    @click="switchLang"
+                >{{ locale === 'mn' ? 'ENG' : 'МОН' }}</button>
 
                 <!-- Хэрэглэгч -->
                 <div class="relative hidden lg:block">
                     <button
                         v-if="auth.isLoggedIn"
-                        class="flex items-center gap-2 rounded-lg border border-white/30 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                        class="flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-white transition hover:bg-white hover:text-pine-800"
+                        :title="auth.user.name"
                         @click="toggle('user')"
                     >
-                        <Icon name="user" :size="16" />
-                        <span class="max-w-32 truncate">{{ auth.user.first_name || auth.user.name }}</span>
-                        <span class="text-[10px] opacity-70">▾</span>
+                        <img v-if="auth.user.photo" :src="auth.user.photo" class="h-full w-full rounded-full object-cover" alt="" />
+                        <Icon v-else name="user" :size="17" />
                     </button>
-                    <router-link
-                        v-else
-                        to="/login"
-                        class="rounded-lg bg-white px-4 py-2 text-sm font-bold text-pine-800 transition hover:bg-sand-100"
-                        @click="closeAll"
-                    >{{ t('nav.login') }}</router-link>
-
                     <div v-if="openMenu === 'user' && auth.isLoggedIn" class="dropdown right-0 left-auto w-52">
                         <router-link class="dropitem" to="/dashboard" @click="closeAll">{{ t('nav.dashboard') }}</router-link>
                         <router-link v-if="auth.isAdmin" class="dropitem" to="/admin" @click="closeAll">{{ t('nav.admin') }}</router-link>
@@ -136,8 +116,8 @@ async function logout() {
                 </div>
 
                 <!-- Mobile товч -->
-                <button class="rounded-lg border border-white/30 p-2 text-white lg:hidden" @click="mobileOpen = !mobileOpen">
-                    <Icon :name="mobileOpen ? 'x' : 'menu'" :size="20" />
+                <button class="flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-white lg:hidden" @click="mobileOpen = !mobileOpen">
+                    <Icon :name="mobileOpen ? 'x' : 'menu'" :size="19" />
                 </button>
             </div>
         </div>
@@ -167,7 +147,7 @@ async function logout() {
 @reference '../../css/app.css';
 
 .navlink {
-    @apply rounded-lg px-3 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10 hover:text-white;
+    @apply rounded-lg px-3.5 py-2 text-[15px] font-medium text-white/90 transition hover:bg-white/10 hover:text-white;
 }
 .dropdown {
     @apply absolute left-0 top-full z-50 mt-2 w-64 rounded-xl border border-stone-200 bg-white p-1.5 text-stone-700 shadow-lg;

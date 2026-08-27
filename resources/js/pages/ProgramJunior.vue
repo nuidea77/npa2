@@ -2,7 +2,8 @@
 import { computed } from 'vue';
 import { t } from '../i18n';
 import { useEvents } from '../composables/useEvents';
-import PageHero from '../components/PageHero.vue';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 import RegButton from '../components/RegButton.vue';
 
 const { events } = useEvents('junior_ranger');
@@ -12,7 +13,7 @@ const past = computed(() => events.value.filter((e) => e.reg_state === 'closed')
 
 <template>
     <div>
-        <PageHero :title="t('prog.junior')" />
+        <DetailHeader :title="t('prog.junior')" back="/programs" />
 
         <div class="mx-auto max-w-4xl px-4 py-12">
             <section>
@@ -70,5 +71,6 @@ const past = computed(() => events.value.filter((e) => e.reg_state === 'closed')
                 <p v-else class="mt-4 rounded-2xl bg-stone-100 p-6 text-stone-500">{{ t('common.comingSoon') }}</p>
             </section>
         </div>
+        <FeedbackInline />
     </div>
 </template>

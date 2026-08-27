@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import { locale, t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
-import Logo from './Logo.vue';
 import Icon from './Icon.vue';
 
 const auth = useAuthStore();
@@ -14,82 +13,62 @@ const contact = computed(() => auth.settings?.contact ?? {
     address: 'Монгол Экологи Төв, Далай Тауэр, 602 тоот, ЮНЕСКО гудамж-31, Сүхбаатар дүүрэг, 1-р хороо, Ш/Х-682, Улаанбаатар-14220',
 });
 
-const quickLinks = computed(() => [
-    { to: '/about', label: t('nav.about') },
-    { to: '/programs', label: t('nav.programs') },
-    { to: '/parks', label: t('nav.parks') },
-    { to: '/jobs', label: t('nav.jobs') },
-    { to: '/news', label: t('nav.news') },
-    { to: '/help', label: t('nav.help') },
-]);
+function openAssistant() {
+    window.dispatchEvent(new CustomEvent('npa-open-chat'));
+}
 </script>
 
 <template>
     <footer class="bg-pine-700 text-white">
-        <div class="mx-auto grid max-w-7xl gap-12 px-4 py-14 md:grid-cols-2 lg:grid-cols-4">
-            <!-- Лого + тайлбар -->
-            <div>
-                <Logo img-class="h-12 w-auto" />
-                <p class="mt-5 text-[15px] leading-relaxed text-white/80">
-                    {{ locale === 'en'
-                        ? "Empowering conservation leaders through education and hands-on experience in Mongolia's protected areas."
-                        : 'Монгол Улсын Тусгай хамгаалалттай газруудын менежментийг сайжруулж, олон улсын сайн туршлагыг нэвтрүүлнэ.' }}
-                </p>
-                <div class="mt-5 flex gap-3">
+        <div class="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-12 lg:flex-row lg:items-start lg:justify-between">
+            <!-- Брэнд -->
+            <div class="max-w-sm">
+                <img src="/images/logo-square.png" alt="National Park Academy" class="h-24 w-auto" />
+                <div class="mt-4 text-lg font-extrabold uppercase tracking-wide">National Park Academy</div>
+                <p class="mt-1 text-sm text-white/70">{{ t('about.tagline') }}</p>
+                <div class="mt-5 flex gap-2.5">
                     <a :href="contact.facebook" target="_blank" rel="noopener" class="social" title="Facebook">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
                     </a>
                     <a :href="contact.instagram" target="_blank" rel="noopener" class="social" title="Instagram">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Холбоос -->
-            <div>
-                <h3 class="text-lg font-bold text-white">{{ locale === 'en' ? 'Quick Links' : 'Холбоос' }}</h3>
-                <ul class="mt-5 grid gap-3.5 text-[15px]">
-                    <li v-for="l in quickLinks" :key="l.to">
-                        <router-link :to="l.to" class="text-white/80 transition hover:text-white">{{ l.label }}</router-link>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Холбоо барих -->
-            <div>
-                <h3 class="text-lg font-bold text-white">{{ t('footer.contact') }}</h3>
-                <ul class="mt-5 grid gap-4 text-[15px] text-white/80">
-                    <li class="flex items-start gap-3">
-                        <Icon name="mail" :size="20" class="mt-0.5 shrink-0" />
-                        <a :href="'mailto:' + contact.email" class="transition hover:text-white">{{ contact.email }}</a>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <Icon name="phone" :size="20" class="mt-0.5 shrink-0" />
-                        <span>{{ contact.phone }}</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <Icon name="map-pin" :size="20" class="mt-0.5 shrink-0" />
-                        <span class="leading-relaxed">{{ contact.address }}</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Санал хүсэлт CTA -->
-            <div>
-                <h3 class="text-lg font-bold text-white">{{ locale === 'en' ? 'Support National Parks' : 'ТХГ-уудаа дэмжье' }}</h3>
-                <p class="mt-5 text-[15px] leading-relaxed text-white/80">
-                    {{ locale === 'en'
-                        ? "Help us protect Mongolia's natural heritage for future generations."
-                        : 'Монгол орны байгалийн өвийг хойч үедээ өвлүүлэхэд бидэнтэй нэгдээрэй.' }}
-                </p>
-                <router-link
-                    to="/help#feedback"
-                    class="mt-5 inline-block rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-pine-800 transition hover:bg-sand-100"
-                >{{ t('nav.feedback') }}</router-link>
+            <!-- Холбоо барих баганууд (Figma) -->
+            <div class="grid gap-8 sm:grid-cols-3 lg:max-w-2xl lg:flex-1">
+                <div>
+                    <div class="flex items-center gap-2 text-sm font-bold">
+                        <Icon name="phone" :size="16" /> {{ locale === 'en' ? 'Contact' : 'Холбогдох' }}
+                    </div>
+                    <div class="mt-2.5 text-sm text-white/75">{{ contact.phone }}</div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 text-sm font-bold">
+                        <Icon name="mail" :size="16" /> {{ locale === 'en' ? 'Email' : 'Имэйл хаяг' }}
+                    </div>
+                    <a :href="'mailto:' + contact.email" class="mt-2.5 block text-sm text-white/75 transition hover:text-white">{{ contact.email }}</a>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 text-sm font-bold">
+                        <Icon name="map-pin" :size="16" /> {{ locale === 'en' ? 'Address' : 'Байршил' }}
+                    </div>
+                    <div class="mt-2.5 text-sm leading-relaxed text-white/75">{{ contact.address }}</div>
+                    <button class="mt-4 flex items-center gap-2 text-sm font-semibold text-white/90 transition hover:text-white" @click="openAssistant">
+                        <span class="flex h-5 w-5 items-center justify-center rounded-full border border-white/60 text-[11px]">?</span>
+                        {{ t('footer.assistantBtn') }}
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="border-t border-white/15 py-5 text-center text-[13px] text-white/60">
-            © {{ new Date().getFullYear() }} National Park Academy — Монгол Экологи Төв. {{ t('footer.rights') }}
+
+        <!-- Доод зурвас -->
+        <div class="border-t border-white/15">
+            <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-4 text-[13px] text-white/60">
+                <div>National Park Academy | All right reserved © {{ new Date().getFullYear() }}</div>
+                <div>Монгол Экологи Төв</div>
+            </div>
         </div>
     </footer>
 </template>
@@ -98,6 +77,6 @@ const quickLinks = computed(() => [
 @reference '../../css/app.css';
 
 .social {
-    @apply flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-white transition hover:bg-white hover:text-pine-800;
+    @apply flex h-9 w-9 items-center justify-center rounded-full border border-white/40 text-white transition hover:bg-white hover:text-pine-800;
 }
 </style>

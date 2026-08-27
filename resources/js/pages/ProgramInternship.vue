@@ -1,12 +1,13 @@
 <script setup>
 import { t } from '../i18n';
-import PageHero from '../components/PageHero.vue';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 import Icon from '../components/Icon.vue';
 </script>
 
 <template>
     <div>
-        <PageHero :title="t('prog.internship')" />
+        <DetailHeader :title="t('prog.internship')" back="/programs" />
 
         <div class="mx-auto max-w-4xl px-4 py-12">
             <div class="prose-mn space-y-4 leading-relaxed text-stone-700">
@@ -35,5 +36,6 @@ import Icon from '../components/Icon.vue';
                 </router-link>
             </div>
         </div>
+        <FeedbackInline />
     </div>
 </template>

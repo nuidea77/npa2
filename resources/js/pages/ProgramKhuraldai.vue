@@ -2,7 +2,8 @@
 import { computed } from 'vue';
 import { t } from '../i18n';
 import { useEvents } from '../composables/useEvents';
-import PageHero from '../components/PageHero.vue';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 import RegButton from '../components/RegButton.vue';
 
 const { events } = useEvents('khuraldai');
@@ -12,7 +13,7 @@ const upcoming = computed(() => events.value.filter((e) => ['open', 'not_started
 
 <template>
     <div>
-        <PageHero :title="t('prog.khuraldai')" />
+        <DetailHeader :title="t('prog.khuraldai')" back="/programs" />
 
         <div class="mx-auto max-w-4xl px-4 py-12">
             <!-- Хуралдай 2024 -->
@@ -74,5 +75,6 @@ const upcoming = computed(() => events.value.filter((e) => ['open', 'not_started
                 </div>
             </section>
         </div>
+        <FeedbackInline />
     </div>
 </template>

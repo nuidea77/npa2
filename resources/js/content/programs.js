@@ -4,6 +4,7 @@
 export const programs = [
     {
         slug: 'passport',
+        image: '/images/yosemite.jpg',
         path: '/programs/passport',
         key: 'prog.passport',
         icon: 'book-open',
@@ -14,6 +15,7 @@ export const programs = [
     },
     {
         slug: 'khuraldai',
+        image: '/images/news-khuraldai.svg',
         path: '/programs/khuraldai',
         key: 'prog.khuraldai',
         icon: 'users',
@@ -24,6 +26,7 @@ export const programs = [
     },
     {
         slug: 'junior-ranger',
+        image: '/images/team.jpg',
         path: '/programs/junior-ranger',
         key: 'prog.junior',
         icon: 'tent',
@@ -34,6 +37,7 @@ export const programs = [
     },
     {
         slug: 'regional-training',
+        image: '/images/gallery-forum1.svg',
         path: '/programs/regional-training',
         key: 'prog.regional',
         icon: 'graduation',
@@ -44,6 +48,7 @@ export const programs = [
     },
     {
         slug: 'sister-parks',
+        image: '/images/denali.jpg',
         path: '/programs/sister-parks',
         key: 'prog.sister',
         icon: 'globe',
@@ -54,6 +59,7 @@ export const programs = [
     },
     {
         slug: 'volunteer',
+        image: '/images/gallery-camp2.svg',
         path: '/programs/volunteer',
         key: 'prog.volunteer',
         icon: 'sprout',
@@ -64,6 +70,7 @@ export const programs = [
     },
     {
         slug: 'internship',
+        image: '/images/park-forest.svg',
         path: '/programs/internship',
         key: 'prog.internship',
         icon: 'compass',
@@ -74,6 +81,7 @@ export const programs = [
     },
     {
         slug: 'jobs',
+        image: '/images/park-steppe.svg',
         path: '/jobs',
         key: 'prog.jobs',
         icon: 'briefcase',

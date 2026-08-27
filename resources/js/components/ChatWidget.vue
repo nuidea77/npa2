@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import axios from '../bootstrap';
 import { locale, t } from '../i18n';
 import Icon from './Icon.vue';
@@ -19,6 +19,14 @@ const messages = ref([
             : 'Сайн байна уу! Би NPA туслах байна. National Park Academy-ийн талаар асуугаарай, эсвэл доорх асуултуудаас сонгоно уу.',
     },
 ]);
+
+onMounted(() => window.addEventListener('npa-open-chat', onExternalOpen));
+onBeforeUnmount(() => window.removeEventListener('npa-open-chat', onExternalOpen));
+
+function onExternalOpen() {
+    if (!open.value) toggleOpen();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
 
 async function toggleOpen() {
     open.value = !open.value;

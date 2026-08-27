@@ -1,40 +1,49 @@
 <script setup>
+import { computed } from 'vue';
 import { locale, t } from '../i18n';
+import Icon from './Icon.vue';
 
+/** Мэдээний фото карт — доод хэсэгтээ гүн ногоон градиент дээр гарчигтай (Figma). */
 const props = defineProps({
     item: { type: Object, required: true },
 });
 
-const title = () => (locale.value === 'en' && props.item.title_en ? props.item.title_en : props.item.title);
+const title = computed(() => (locale.value === 'en' && props.item.title_en ? props.item.title_en : props.item.title));
+
+const host = computed(() => {
+    try { return new URL(props.item.external_url).hostname.replace('www.', ''); } catch { return ''; }
+});
 </script>
 
 <template>
-    <!-- Гадаад линктэй мэдээ шууд тухайн линк рүү үсэрнэ -->
-    <a
-        v-if="item.type === 'external'"
-        :href="item.external_url"
-        target="_blank"
-        rel="noopener"
-        class="group block overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition hover:shadow-md"
+    <component
+        :is="item.type === 'external' ? 'a' : 'router-link'"
+        v-bind="item.type === 'external'
+            ? { href: item.external_url, target: '_blank', rel: 'noopener' }
+            : { to: `/news/${item.id}` }"
+        class="group relative block h-72 overflow-hidden rounded-xl bg-pine-900"
     >
-        <img :src="item.image || '/images/news-external.svg'" :alt="title()" class="h-44 w-full object-cover" />
-        <div class="p-4">
-            <div class="text-xs text-stone-400">{{ item.published_at }} · ↗</div>
-            <h3 class="mt-1 font-semibold leading-snug text-stone-800 group-hover:text-pine-700">{{ title() }}</h3>
-        </div>
-    </a>
+        <img
+            :src="item.image || '/images/news-external.svg'"
+            :alt="title"
+            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-pine-950/95 via-pine-900/40 to-black/10"></div>
 
-    <router-link
-        v-else
-        :to="`/news/${item.id}`"
-        class="group block overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition hover:shadow-md"
-    >
-        <img :src="item.image || '/images/news-camp.svg'" :alt="title()" class="h-44 w-full object-cover" />
-        <div class="p-4">
-            <div class="text-xs text-stone-400">{{ item.published_at }}</div>
-            <h3 class="mt-1 font-semibold leading-snug text-stone-800 group-hover:text-pine-700">{{ title() }}</h3>
-            <p v-if="item.excerpt" class="mt-2 line-clamp-2 text-sm text-stone-500">{{ item.excerpt }}</p>
-            <span class="mt-2 inline-block text-sm font-medium text-pine-600">{{ t('common.readMore') }} →</span>
+        <!-- Гадаад эх сурвалжийн тэмдэг -->
+        <div
+            v-if="item.type === 'external' && host"
+            class="absolute left-4 top-1/2 flex items-center gap-1.5 rounded-full bg-black/30 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
+        >
+            <Icon name="globe" :size="13" /> {{ host }}
         </div>
-    </router-link>
+
+        <div class="absolute inset-x-0 bottom-0 p-4">
+            <div class="text-[11px] font-medium text-white/60">{{ item.published_at }}</div>
+            <h3 class="mt-1 line-clamp-3 text-[15px] font-bold leading-snug text-white">{{ title }}</h3>
+            <span class="mt-2.5 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 transition group-hover:gap-2.5">
+                {{ t('common.detail') }} <Icon name="arrow-right" :size="15" />
+            </span>
+        </div>
+    </component>
 </template>

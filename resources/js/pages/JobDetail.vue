@@ -4,6 +4,8 @@ import { useRoute } from 'vue-router';
 import axios from '../bootstrap';
 import { t } from '../i18n';
 import Icon from '../components/Icon.vue';
+import DetailHeader from '../components/DetailHeader.vue';
+import FeedbackInline from '../components/FeedbackInline.vue';
 
 const route = useRoute();
 const job = ref(null);
@@ -20,12 +22,12 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mx-auto max-w-4xl px-4 py-12">
-        <router-link to="/jobs" class="text-sm font-medium text-pine-600 hover:text-pine-800">← {{ t('common.back') }}</router-link>
+    <div>
+        <div v-if="loading" class="mx-auto max-w-4xl px-4 py-16 text-stone-400">{{ t('common.loading') }}</div>
 
-        <div v-if="loading" class="mt-6 text-stone-400">{{ t('common.loading') }}</div>
-
-        <div v-else-if="job" class="mt-5">
+        <template v-else-if="job">
+        <DetailHeader :title="job.position" back="/jobs" :date="job.open_date?.slice(0, 10).replaceAll('-', '/')" />
+        <div class="mx-auto max-w-4xl px-4 pb-14">
             <div class="flex flex-wrap items-center gap-2">
                 <span
                     class="rounded-full px-3 py-1 text-xs font-bold"
@@ -35,8 +37,7 @@ onMounted(async () => {
                 <span class="text-xs text-stone-400">{{ job.open_date }} — {{ job.close_date }}</span>
             </div>
 
-            <h1 class="mt-3 text-2xl font-bold text-pine-900 md:text-3xl">{{ job.position }}</h1>
-            <div class="mt-2 text-stone-600">{{ job.park_name }} — {{ job.org?.name }}</div>
+            <div class="mt-3 text-stone-600">{{ job.park_name }} — {{ job.org?.name }}</div>
 
             <div class="mt-8 grid gap-6 md:grid-cols-3">
                 <div class="md:col-span-2">
@@ -69,6 +70,8 @@ onMounted(async () => {
                 </aside>
             </div>
         </div>
+        <FeedbackInline />
+        </template>
     </div>
 </template>
 

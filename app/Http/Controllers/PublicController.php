@@ -20,7 +20,7 @@ class PublicController extends Controller
     {
         $news = News::where('status', 'active')
             ->orderByDesc('published_at')->orderByDesc('id')
-            ->take(3)->get()
+            ->take(4)->get()
             ->map(fn ($n) => $this->newsItem($n));
 
         $parks = Park::with('org:id,name')->where('featured', true)->take(4)
