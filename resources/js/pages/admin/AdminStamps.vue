@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import axios from '../../bootstrap';
 import Modal from '../../components/Modal.vue';
+import Icon from '../../components/Icon.vue';
 
 const stamps = ref([]);
 const summary = ref([]);
@@ -244,7 +245,10 @@ async function saveYear() {
                     <div class="mb-1.5 text-xs font-bold uppercase tracking-wide text-stone-400">Админы лог</div>
                     <div v-for="l in detail.logs" :key="l.id" class="mb-1.5 rounded-lg bg-stone-50 px-3 py-2 text-xs">
                         <div class="flex justify-between gap-2">
-                            <span class="font-semibold">{{ { created: '➕ Нэмсэн', edited: '✏️ Зассан', deleted: '🗑️ Хассан' }[l.action] ?? l.action }}</span>
+                            <span class="flex items-center gap-1.5 font-semibold">
+                                <Icon :name="{ created: 'check', edited: 'edit', deleted: 'trash' }[l.action] ?? 'star'" :size="13" class="text-pine-600" />
+                                {{ { created: 'Нэмсэн', edited: 'Зассан', deleted: 'Хассан' }[l.action] ?? l.action }}
+                            </span>
                             <span class="text-stone-400">{{ l.created_at?.slice(0, 16).replace('T', ' ') }}</span>
                         </div>
                         <div class="text-stone-500">{{ l.admin_name }} — {{ l.note }}</div>

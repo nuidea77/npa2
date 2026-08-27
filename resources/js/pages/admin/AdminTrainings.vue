@@ -3,13 +3,14 @@ import { computed, ref } from 'vue';
 import { useCrud } from '../../composables/useCrud';
 import { useAuthStore } from '../../stores/auth';
 import Modal from '../../components/Modal.vue';
+import Icon from '../../components/Icon.vue';
 
 const auth = useAuthStore();
 const { items, loading, saving, errors, save, remove } = useCrud('trainings', 'trainings');
 
 const positions = computed(() => auth.settings?.positions ?? []);
 const regions = ['Баруун бүс', 'Хангайн бүс', 'Төвийн бүс', 'Зүүн бүс', 'Говийн бүс'];
-const typeLabels = { youtube: '▶️ YouTube', pdf: '📄 PDF', image: '🖼️ Зураг' };
+const types = { youtube: { icon: 'play', label: 'YouTube' }, pdf: { icon: 'file-text', label: 'PDF' }, image: { icon: 'image', label: 'Зураг' } };
 
 const form = ref(null);
 const file = ref(null);
@@ -46,7 +47,7 @@ async function submit() {
             <div v-for="tr in items" :key="tr.id" class="flex items-center gap-4 rounded-2xl border border-stone-100 bg-white p-4 shadow-sm">
                 <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-2 text-xs">
-                        <span class="rounded-full bg-stone-100 px-2 py-0.5 font-semibold text-stone-600">{{ typeLabels[tr.type] }}</span>
+                        <span class="flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 font-semibold text-stone-600"><Icon :name="types[tr.type]?.icon ?? 'file-text'" :size="12" /> {{ types[tr.type]?.label ?? tr.type }}</span>
                         <span class="text-stone-400">{{ tr.published_at?.slice(0, 10) }}</span>
                         <span v-if="tr.positions?.length" class="text-stone-400">· {{ tr.positions.join(', ') }}</span>
                         <span v-if="tr.regions?.length" class="text-stone-400">· {{ tr.regions.join(', ') }}</span>

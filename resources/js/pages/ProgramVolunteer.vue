@@ -175,7 +175,7 @@ async function submit() {
         <!-- Амжилтын popup -->
         <Modal :show="!!successMsg" @close="successMsg = ''">
             <div class="text-center">
-                <div class="text-4xl">✅</div>
+                <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pine-100 text-pine-700"><Icon name="check" :size="30" /></div>
                 <p class="mt-3 font-medium text-stone-700">{{ successMsg }}</p>
             </div>
         </Modal>

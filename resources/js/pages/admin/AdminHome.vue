@@ -1,18 +1,19 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from '../../bootstrap';
+import Icon from '../../components/Icon.vue';
 
 const stats = ref(null);
 const notifications = ref([]);
 const outbox = ref([]);
 const tab = ref('notifications');
 
-const kindLabels = {
-    user_register: '👤 Бүртгэл',
-    volunteer: '🌱 Сайн дурын',
-    feedback: '💬 Санал хүсэлт',
-    event_reg: '📅 Арга хэмжээ',
-    password_reset: '🔑 Нууц үг',
+const kinds = {
+    user_register: { icon: 'user', label: 'Бүртгэл' },
+    volunteer: { icon: 'sprout', label: 'Сайн дурын' },
+    feedback: { icon: 'chat', label: 'Санал хүсэлт' },
+    event_reg: { icon: 'calendar', label: 'Арга хэмжээ' },
+    password_reset: { icon: 'key', label: 'Нууц үг' },
 };
 
 async function load() {
@@ -78,7 +79,9 @@ onMounted(load);
             <div v-if="tab === 'notifications'" class="divide-y divide-stone-50">
                 <div v-if="!notifications.length" class="p-5 text-sm text-stone-400">Мэдэгдэл алга.</div>
                 <div v-for="n in notifications" :key="n.id" class="flex items-center gap-3 px-5 py-3" :class="{ 'bg-pine-50/50': !n.read }">
-                    <span class="shrink-0 text-xs">{{ kindLabels[n.kind] ?? n.kind }}</span>
+                    <span class="flex shrink-0 items-center gap-1.5 text-xs text-stone-500">
+                        <Icon :name="kinds[n.kind]?.icon ?? 'bell'" :size="14" class="text-pine-600" /> {{ kinds[n.kind]?.label ?? n.kind }}
+                    </span>
                     <span class="flex-1 text-sm text-stone-700">{{ n.text }}</span>
                     <span class="shrink-0 text-xs text-stone-400">{{ n.created_at?.slice(0, 16).replace('T', ' ') }}</span>
                     <button v-if="!n.read" class="shrink-0 text-xs font-medium text-pine-600 hover:underline" @click="markRead(n.id)">Уншсан</button>
@@ -96,7 +99,7 @@ onMounted(load);
                     <div class="mt-0.5 text-xs text-stone-500">{{ m.body }}</div>
                 </div>
                 <p class="px-5 py-3 text-xs text-stone-400">
-                    ℹ️ SMTP тохируулаагүй тул и-мэйлүүд энд лог хэлбэрээр хадгалагдаж байна. .env дээр MAIL_* тохиргоог хийснээр бодит илгээлт ажиллана.
+                    SMTP тохируулаагүй тул и-мэйлүүд энд лог хэлбэрээр хадгалагдаж байна. .env дээр MAIL_* тохиргоог хийснээр бодит илгээлт ажиллана.
                 </p>
             </div>
         </div>

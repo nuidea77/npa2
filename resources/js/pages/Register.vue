@@ -5,6 +5,7 @@ import axios from '../bootstrap';
 import { t } from '../i18n';
 import { useAuthStore } from '../stores/auth';
 import Modal from '../components/Modal.vue';
+import Icon from '../components/Icon.vue';
 
 const auth = useAuthStore();
 const router = useRouter();
@@ -151,7 +152,7 @@ function closeSuccess() {
         <!-- Амжилттай илгээгдсэн popup -->
         <Modal :show="!!successMsg" @close="closeSuccess">
             <div class="text-center">
-                <div class="text-4xl">🎉</div>
+                <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pine-100 text-pine-700"><Icon name="check" :size="30" /></div>
                 <p class="mt-3 font-medium text-stone-700">{{ successMsg }}</p>
                 <p class="mt-2 text-sm text-stone-500">{{ successNote }}</p>
             </div>

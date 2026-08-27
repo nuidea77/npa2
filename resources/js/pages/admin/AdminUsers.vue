@@ -112,7 +112,7 @@ async function setRole(u, role) {
                 <tbody class="divide-y divide-stone-50">
                     <tr v-for="u in users" :key="u.id">
                         <td class="px-4 py-3">
-                            <div class="font-medium text-stone-800">{{ u.gender === 'female' ? '👩' : '👨' }} {{ u.name }}</div>
+                            <div class="font-medium text-stone-800">{{ u.name }}</div>
                             <div class="text-xs text-stone-400">{{ u.birth_date }}</div>
                         </td>
                         <td class="px-4 py-3">

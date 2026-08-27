@@ -1,22 +1,23 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from '../../bootstrap';
+import Icon from '../../components/Icon.vue';
 
 const stats = ref(null);
 
 const nav = [
-    { to: '/admin', label: '🏠 Нүүр', exact: true },
-    { to: '/admin/users', label: '👥 Хэрэглэгчид', badge: 'pending_users' },
-    { to: '/admin/stamps', label: '🎖️ NPA тамга' },
-    { to: '/admin/events', label: '📅 Сургалт, арга хэмжээ' },
-    { to: '/admin/inbox', label: '📨 Санал хүсэлт', badge: 'unanswered_feedback' },
-    { to: '/admin/news', label: '📰 Мэдээ' },
-    { to: '/admin/jobs', label: '💼 Ажлын байр' },
-    { to: '/admin/parks', label: '🏞️ ТХГ-ууд' },
-    { to: '/admin/orgs', label: '🏢 Хамгаалалтын захиргаад' },
-    { to: '/admin/trainings', label: '🎓 Сургалтын материал' },
-    { to: '/admin/faq', label: '❓ Түгээмэл асуулт' },
-    { to: '/admin/settings', label: '⚙️ Тохиргоо' },
+    { to: '/admin', icon: 'home', label: 'Нүүр', exact: true },
+    { to: '/admin/users', icon: 'users', label: 'Хэрэглэгчид', badge: 'pending_users' },
+    { to: '/admin/stamps', icon: 'award', label: 'NPA тамга' },
+    { to: '/admin/events', icon: 'calendar', label: 'Сургалт, арга хэмжээ' },
+    { to: '/admin/inbox', icon: 'inbox', label: 'Санал хүсэлт', badge: 'unanswered_feedback' },
+    { to: '/admin/news', icon: 'news', label: 'Мэдээ' },
+    { to: '/admin/jobs', icon: 'briefcase', label: 'Ажлын байр' },
+    { to: '/admin/parks', icon: 'mountain', label: 'ТХГ-ууд' },
+    { to: '/admin/orgs', icon: 'building', label: 'Хамгаалалтын захиргаад' },
+    { to: '/admin/trainings', icon: 'graduation', label: 'Сургалтын материал' },
+    { to: '/admin/faq', icon: 'chat', label: 'Түгээмэл асуулт' },
+    { to: '/admin/settings', icon: 'settings', label: 'Тохиргоо' },
 ];
 
 onMounted(async () => {
@@ -41,7 +42,7 @@ onMounted(async () => {
                         class="flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-pine-50 hover:text-pine-800"
                         :class="{ 'bg-pine-50 text-pine-800': n.exact ? $route.path === n.to : $route.path.startsWith(n.to) && n.to !== '/admin' }"
                     >
-                        {{ n.label }}
+                        <span class="flex items-center gap-2.5"><Icon :name="n.icon" :size="17" class="shrink-0 text-pine-600" /> {{ n.label }}</span>
                         <span
                             v-if="n.badge && stats?.[n.badge]"
                             class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold text-red-700"
@@ -59,8 +60,8 @@ onMounted(async () => {
                     v-for="n in nav"
                     :key="n.to"
                     :to="n.to"
-                    class="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-xs font-medium text-stone-600"
-                >{{ n.label }}</router-link>
+                    class="flex shrink-0 items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-xs font-medium text-stone-600"
+                ><Icon :name="n.icon" :size="14" class="text-pine-600" /> {{ n.label }}</router-link>
             </div>
             <router-view />
         </div>

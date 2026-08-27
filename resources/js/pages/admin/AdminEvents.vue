@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import axios from '../../bootstrap';
 import { useCrud } from '../../composables/useCrud';
 import Modal from '../../components/Modal.vue';
+import Icon from '../../components/Icon.vue';
 
 const { items, loading, saving, errors, save, remove } = useCrud('events', 'events');
 
@@ -81,7 +82,7 @@ function setOptions(q, text) {
                         <span class="rounded-full bg-stone-100 px-2 py-0.5 font-semibold text-stone-600">{{ programs[e.program] }}</span>
                         <span class="rounded-full px-2 py-0.5 font-bold" :class="stateClasses[e.reg_state]">{{ stateLabels[e.reg_state] }}</span>
                         <span v-if="e.reg_start" class="text-stone-400">{{ e.reg_start?.slice(0, 10) }} — {{ e.reg_end?.slice(0, 10) }}</span>
-                        <span v-if="e.login_required" class="text-stone-400">🔒 Нэвтрэлт шаардана</span>
+                        <span v-if="e.login_required" class="flex items-center gap-1 text-stone-400"><Icon name="lock" :size="12" /> Нэвтрэлт шаардана</span>
                     </div>
                     <div class="mt-1 font-semibold text-stone-800">{{ e.title }}</div>
                     <div class="text-xs text-stone-400">Асуулт: {{ (e.questions ?? []).length }} · Бүртгэл: {{ e.registrations_count }}</div>
@@ -140,7 +141,7 @@ function setOptions(q, text) {
                             <label class="flex shrink-0 items-center gap-1.5 text-xs text-stone-600">
                                 <input v-model="q.required" type="checkbox" class="accent-pine-700" /> Заавал
                             </label>
-                            <button type="button" class="shrink-0 text-red-500 hover:text-red-700" @click="form.questions.splice(i, 1)">🗑</button>
+                            <button type="button" class="shrink-0 text-red-500 hover:text-red-700" @click="form.questions.splice(i, 1)"><Icon name="trash" :size="16" /></button>
                         </div>
                         <input v-model="q.label" class="input mt-2 w-full" placeholder="Асуултын текст" />
                         <input

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import axios from '../../bootstrap';
 import { useAuthStore } from '../../stores/auth';
+import Icon from '../../components/Icon.vue';
 
 const auth = useAuthStore();
 
@@ -79,7 +80,7 @@ function addItem(list, val) {
                 <div class="mt-3 flex flex-wrap gap-2">
                     <span v-for="(ty, i) in feedbackTypes" :key="ty" class="flex items-center gap-1.5 rounded-full bg-pine-100 px-3 py-1 text-xs font-semibold text-pine-800">
                         {{ ty }}
-                        <button class="text-pine-500 hover:text-red-600" @click="feedbackTypes.splice(i, 1)">✕</button>
+                        <button class="text-pine-500 hover:text-red-600" @click="feedbackTypes.splice(i, 1)"><Icon name="x" :size="12" /></button>
                     </span>
                 </div>
                 <div class="mt-3 flex gap-2">
@@ -93,7 +94,7 @@ function addItem(list, val) {
                 <div class="mt-3 flex flex-wrap gap-2">
                     <span v-for="(st, i) in feedbackSubtypes" :key="st" class="flex items-center gap-1.5 rounded-full bg-sand-100 px-3 py-1 text-xs font-semibold text-sand-800">
                         {{ st }}
-                        <button class="text-sand-600 hover:text-red-600" @click="feedbackSubtypes.splice(i, 1)">✕</button>
+                        <button class="text-sand-600 hover:text-red-600" @click="feedbackSubtypes.splice(i, 1)"><Icon name="x" :size="12" /></button>
                     </span>
                 </div>
                 <div class="mt-3 flex gap-2">
@@ -105,7 +106,7 @@ function addItem(list, val) {
 
         <div class="mt-5 flex items-center gap-3">
             <button class="btn-primary" @click="save">Тохиргоо хадгалах</button>
-            <span v-if="saved" class="text-sm font-medium text-pine-700">✅ Хадгалагдлаа</span>
+            <span v-if="saved" class="flex items-center gap-1.5 text-sm font-medium text-pine-700"><Icon name="check" :size="16" /> Хадгалагдлаа</span>
         </div>
 
         <!-- Админ эрхтэй хэрэглэгчид -->

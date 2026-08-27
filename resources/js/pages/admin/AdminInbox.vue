@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from '../../bootstrap';
 import Modal from '../../components/Modal.vue';
+import Icon from '../../components/Icon.vue';
 
 const route = useRoute();
 const tab = ref(route.query.tab === 'volunteers' ? 'volunteers' : 'feedback');
@@ -51,8 +52,8 @@ async function setVolStatus(v, status) {
         <h1 class="text-xl font-bold text-pine-900">Ирсэн хүсэлтүүд</h1>
 
         <div class="mt-4 flex gap-2">
-            <button class="tab" :class="{ active: tab === 'feedback' }" @click="tab = 'feedback'">💬 Санал хүсэлт, талархал</button>
-            <button class="tab" :class="{ active: tab === 'volunteers' }" @click="tab = 'volunteers'">🌱 Сайн дурын хүсэлтүүд</button>
+            <button class="tab flex items-center gap-1.5" :class="{ active: tab === 'feedback' }" @click="tab = 'feedback'"><Icon name="chat" :size="15" /> Санал хүсэлт, талархал</button>
+            <button class="tab flex items-center gap-1.5" :class="{ active: tab === 'volunteers' }" @click="tab = 'volunteers'"><Icon name="sprout" :size="15" /> Сайн дурын хүсэлтүүд</button>
         </div>
 
         <div v-if="loading" class="mt-6 text-stone-400">Ачаалж байна...</div>
@@ -86,9 +87,10 @@ async function setVolStatus(v, status) {
                         <span class="ml-auto text-stone-400">{{ fb.created_at?.slice(0, 16).replace('T', ' ') }}</span>
                     </div>
                     <p class="mt-2 text-sm text-stone-700">{{ fb.message }}</p>
-                    <div class="mt-2 text-xs text-stone-400">
-                        ✉️ {{ fb.email }} <span v-if="fb.phone">· 📞 {{ fb.phone }}</span>
-                        <span v-if="fb.user"> · 👤 {{ fb.user.name }}</span>
+                    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-400">
+                        <span class="flex items-center gap-1"><Icon name="mail" :size="13" /> {{ fb.email }}</span>
+                        <span v-if="fb.phone" class="flex items-center gap-1"><Icon name="phone" :size="13" /> {{ fb.phone }}</span>
+                        <span v-if="fb.user" class="flex items-center gap-1"><Icon name="user" :size="13" /> {{ fb.user.name }}</span>
                     </div>
                     <div class="mt-3 flex gap-1.5">
                         <button class="act bg-pine-100 text-pine-800 hover:bg-pine-200" @click="detail = { ...fb }">Хариу бичих</button>
@@ -120,7 +122,11 @@ async function setVolStatus(v, status) {
                     <span class="ml-auto text-stone-400">{{ v.created_at?.slice(0, 16).replace('T', ' ') }}</span>
                 </div>
                 <div class="mt-2 font-semibold text-stone-800">{{ v.name }}</div>
-                <div class="text-xs text-stone-400">📞 {{ v.phone }} · ✉️ {{ v.email }} <span v-if="v.org">· 🏢 {{ v.org.name }}</span></div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-400">
+                    <span class="flex items-center gap-1"><Icon name="phone" :size="13" /> {{ v.phone }}</span>
+                    <span class="flex items-center gap-1"><Icon name="mail" :size="13" /> {{ v.email }}</span>
+                    <span v-if="v.org" class="flex items-center gap-1"><Icon name="building" :size="13" /> {{ v.org.name }}</span>
+                </div>
                 <p class="mt-2 text-sm text-stone-600"><span class="text-stone-400">Танилцуулга:</span> {{ v.intro }}</p>
                 <p class="mt-1 text-sm text-stone-600"><span class="text-stone-400">Шалтгаан:</span> {{ v.reason }}</p>
                 <div class="mt-3">

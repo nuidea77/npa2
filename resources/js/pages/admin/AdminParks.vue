@@ -64,7 +64,7 @@ async function submit() {
             <div v-for="p in items" :key="p.id" class="flex items-center gap-4 rounded-2xl border border-stone-100 bg-white p-4 shadow-sm">
                 <img :src="p.image || '/images/park-mountain.svg'" class="h-14 w-20 shrink-0 rounded-xl object-cover" alt="" />
                 <div class="min-w-0 flex-1">
-                    <div class="font-semibold text-stone-800">{{ p.name }} <span v-if="p.featured" title="Жишээ дэлгэрэнгүй">⭐</span></div>
+                    <div class="flex items-center gap-1.5 font-semibold text-stone-800">{{ p.name }} <Icon v-if="p.featured" name="star" :size="15" class="text-sand-600" title="Нүүрт онцолсон" /></div>
                     <div class="text-xs text-stone-400">{{ p.type }} · {{ p.aimag }} · {{ p.org?.name }}</div>
                 </div>
                 <div class="flex shrink-0 gap-1.5">
