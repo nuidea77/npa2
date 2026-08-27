@@ -119,7 +119,7 @@ watch(tabs, (v) => { if (v.length && !v.some((s) => s.key === active.value)) act
                 <!-- Хажуугийн таб жагсаалт + агуулга -->
                 <div class="mt-8 grid gap-6 lg:grid-cols-[300px_1fr]">
                     <!-- Зүүн: босоо таб (mobile: хэвтээ гүйдэг) -->
-                    <aside class="self-start lg:sticky lg:top-24">
+                    <aside class="min-w-0 self-start lg:sticky lg:top-24">
                         <nav class="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0">
                             <button
                                 v-for="s in tabs"
@@ -136,7 +136,7 @@ watch(tabs, (v) => { if (v.length && !v.some((s) => s.key === active.value)) act
 
                     <!-- Баруун: сонгосон хэсгийн агуулга -->
                     <Transition name="fade" mode="out-in">
-                        <div :key="activeTab?.key" class="min-h-[320px] rounded-xl border border-stone-200 bg-white p-6 md:p-8">
+                        <div :key="activeTab?.key" class="min-h-[320px] min-w-0 rounded-xl border border-stone-200 bg-white p-6 md:p-8">
                             <h2 class="flex items-center gap-3 text-lg font-extrabold text-pine-800">
                                 <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-pine-100 text-pine-700">
                                     <Icon :name="activeTab?.icon" :size="18" />

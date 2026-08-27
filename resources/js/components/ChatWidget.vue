@@ -113,7 +113,7 @@ async function send(text) {
                 class="flex-1 rounded-full border border-stone-200 px-3.5 py-2 text-sm outline-none focus:border-pine-400"
                 :placeholder="locale === 'en' ? 'Type your question...' : 'Асуултаа бичнэ үү...'"
             />
-            <button class="flex items-center rounded-full bg-pine-700 px-4 py-2 text-sm font-semibold text-white hover:bg-pine-800"><Icon name="arrow-right" :size="16" /></button>
+            <button type="submit" class="flex items-center rounded-full bg-pine-700 px-4 py-2 text-sm font-semibold text-white hover:bg-pine-800"><Icon name="arrow-right" :size="16" /></button>
         </form>
     </div>
 </template>

@@ -147,7 +147,7 @@ function closeSuccess() {
 
                 <p class="text-xs text-stone-400">* Мэдээлэл дутуу бол өргөдлөө илгээх боломжгүй.</p>
 
-                <button class="rounded-full bg-pine-700 py-3 font-semibold text-white transition hover:bg-pine-800" :disabled="sending">
+                <button type="submit" class="rounded-full bg-pine-700 py-3 font-semibold text-white transition hover:bg-pine-800" :disabled="sending">
                     {{ sending ? t('common.loading') : t('common.send') }}
                 </button>
             </form>

@@ -37,7 +37,7 @@ async function submit() {
                     <input v-model="email" type="email" class="w-full rounded-xl border border-stone-200 px-3.5 py-2.5 text-sm outline-none focus:border-pine-400" placeholder="tanii@mail.mn" />
                     <p v-if="errors.email" class="mt-1 text-xs text-red-600">{{ errors.email[0] }}</p>
                 </div>
-                <button class="rounded-xl bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
+                <button type="submit" class="rounded-xl bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
                     {{ loading ? t('common.loading') : t('common.send') }}
                 </button>
             </form>

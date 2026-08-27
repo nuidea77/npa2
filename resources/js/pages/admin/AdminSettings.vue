@@ -45,10 +45,16 @@ async function save() {
     setTimeout(() => (saved.value = false), 2000);
 }
 
-function addItem(list, val) {
-    const v = val.value.trim();
-    if (v && !list.value.includes(v)) list.value.push(v);
-    val.value = '';
+function addType() {
+    const v = newType.value.trim();
+    if (v && !feedbackTypes.value.includes(v)) feedbackTypes.value.push(v);
+    newType.value = '';
+}
+
+function addSubtype() {
+    const v = newSubtype.value.trim();
+    if (v && !feedbackSubtypes.value.includes(v)) feedbackSubtypes.value.push(v);
+    newSubtype.value = '';
 }
 </script>
 
@@ -84,8 +90,8 @@ function addItem(list, val) {
                     </span>
                 </div>
                 <div class="mt-3 flex gap-2">
-                    <input v-model="newType" class="input flex-1" placeholder="Шинэ төрөл..." @keyup.enter="addItem(feedbackTypes, $refs)" />
-                    <button class="btn-secondary" @click="feedbackTypes.includes(newType.trim()) || !newType.trim() ? null : (feedbackTypes.push(newType.trim()), newType = '')">Нэмэх</button>
+                    <input v-model="newType" class="input flex-1" placeholder="Шинэ төрөл..." @keyup.enter="addType" />
+                    <button class="btn-secondary" @click="addType">Нэмэх</button>
                 </div>
             </div>
 
@@ -98,8 +104,8 @@ function addItem(list, val) {
                     </span>
                 </div>
                 <div class="mt-3 flex gap-2">
-                    <input v-model="newSubtype" class="input flex-1" placeholder="Шинэ дэд сэдэв..." />
-                    <button class="btn-secondary" @click="feedbackSubtypes.includes(newSubtype.trim()) || !newSubtype.trim() ? null : (feedbackSubtypes.push(newSubtype.trim()), newSubtype = '')">Нэмэх</button>
+                    <input v-model="newSubtype" class="input flex-1" placeholder="Шинэ дэд сэдэв..." @keyup.enter="addSubtype" />
+                    <button class="btn-secondary" @click="addSubtype">Нэмэх</button>
                 </div>
             </div>
         </section>

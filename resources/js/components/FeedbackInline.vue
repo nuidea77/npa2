@@ -60,7 +60,7 @@ async function submit() {
                     <p v-if="errors.message" class="err">{{ errors.message[0] }}</p>
                 </div>
                 <div>
-                    <button class="rounded-lg bg-pine-700 px-8 py-2.5 text-sm font-bold text-white transition hover:bg-pine-800" :disabled="sending">
+                    <button type="submit" class="rounded-lg bg-pine-700 px-8 py-2.5 text-sm font-bold text-white transition hover:bg-pine-800" :disabled="sending">
                         {{ sending ? t('common.loading') : t('common.send2') }}
                     </button>
                 </div>

@@ -54,7 +54,7 @@ async function submit() {
                     <input v-model="form.remember" type="checkbox" class="h-4 w-4 rounded border-stone-300 accent-pine-700" />
                     {{ t('auth.remember') }}
                 </label>
-                <button class="rounded-xl bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
+                <button type="submit" class="rounded-xl bg-pine-700 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="loading">
                     {{ loading ? t('common.loading') : t('auth.loginTitle') }}
                 </button>
             </form>

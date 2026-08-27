@@ -110,7 +110,7 @@ async function submit() {
                     <option value="">Ажиллах хугацаа ({{ t('common.all') }})</option>
                     <option v-for="d in durations" :key="d" :value="d">{{ d }}</option>
                 </select>
-                <button class="rounded-xl bg-pine-700 px-5 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="searching">
+                <button type="submit" class="rounded-xl bg-pine-700 px-5 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="searching">
                     {{ searching ? t('common.loading') : t('common.search') }}
                 </button>
             </form>

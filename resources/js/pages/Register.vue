@@ -137,7 +137,7 @@ function closeSuccess() {
                     </div>
                 </div>
 
-                <button class="mt-2 rounded-xl bg-pine-700 py-3 font-bold text-white transition hover:bg-pine-800" :disabled="loading">
+                <button type="submit" class="mt-2 rounded-xl bg-pine-700 py-3 font-bold text-white transition hover:bg-pine-800" :disabled="loading">
                     {{ loading ? t('common.loading') : t('auth.finish') }}
                 </button>
 

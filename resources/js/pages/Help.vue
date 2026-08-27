@@ -113,7 +113,7 @@ async function submit() {
                         </div>
                     </div>
                     <div>
-                        <button class="rounded-full bg-pine-700 px-7 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="sending">
+                        <button type="submit" class="rounded-full bg-pine-700 px-7 py-2.5 font-semibold text-white transition hover:bg-pine-800" :disabled="sending">
                             {{ sending ? t('common.loading') : t('common.send') }}
                         </button>
                     </div>
