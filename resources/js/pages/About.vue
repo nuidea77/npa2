@@ -24,7 +24,7 @@ const paragraphsEn = [aboutText.en];
         <!-- Бидний тухай — 2 багана -->
         <section id="about" class="scroll-mt-20 border-b border-stone-100">
             <div class="mx-auto grid max-w-6xl gap-8 px-4 py-14 md:grid-cols-[1fr_1.8fr] md:gap-16">
-                <h1 id="mission" class="text-3xl font-extrabold text-pine-800 md:text-4xl">{{ t('nav.about') }}</h1>
+                <h1 id="mission" class="scroll-mt-24 text-3xl font-extrabold text-pine-800 md:text-4xl">{{ t('nav.about') }}</h1>
                 <div class="space-y-5 leading-relaxed text-stone-600">
                     <p v-for="(p, i) in (locale === 'en' ? paragraphsEn : paragraphs)" :key="i">{{ p }}</p>
                 </div>
