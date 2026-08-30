@@ -202,6 +202,30 @@ class DatabaseSeeder extends Seeder
             'status' => 'active',
         ]);
 
+        // ХЗ-ны бусад ажилтнууд (тамга олгох сонголтод харагдана)
+        $staff = [
+            ['Дашийн', 'Батаа', 'male', '1988-03-09', 'Хөвсгөлийн%', 'Мэргэжилтэн', 'bataa@mongolec.org', '99114455'],
+            ['Наранбаатарын', 'Отгонбаяр', 'male', '1983-07-21', 'Хөвсгөлийн%', 'Ахлах мэргэжилтэн/менежер', 'otgonbayar@mongolec.org', '99116677'],
+            ['Тогтохын', 'Мөнхжин', 'female', '1990-12-04', 'Горхи-Тэрэлжийн%', 'Мэргэжилтэн', 'munkhjin@mongolec.org', '99118899'],
+        ];
+
+        foreach ($staff as [$last, $first, $gender, $birth, $orgLike, $position, $email, $phone]) {
+            User::create([
+                'last_name' => $last,
+                'first_name' => $first,
+                'name' => $last . ' ' . $first,
+                'birth_date' => $birth,
+                'gender' => $gender,
+                'org_id' => Org::where('name', 'like', $orgLike)->value('id'),
+                'position' => $position,
+                'phone' => $phone,
+                'email' => $email,
+                'password' => 'demo1234',
+                'role' => 'user',
+                'status' => 'active',
+            ]);
+        }
+
         // Жишээ хүлээгдэж буй бүртгэл
         User::create([
             'last_name' => 'Доржийн',
@@ -230,27 +254,32 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $khuvsgul = Org::where('name', 'like', 'Хөвсгөлийн%')->value('id');
-        $terelj = Org::where('name', 'like', 'Горхи-Тэрэлжийн%')->value('id');
+        // Тамга бүр тухайн ХЗ-ны бүртгэлтэй ажилтанд олгогдоно
+        $users = User::whereIn('email', [
+            'demo@mongolec.org', 'bataa@mongolec.org', 'otgonbayar@mongolec.org', 'munkhjin@mongolec.org',
+        ])->get()->keyBy('email');
 
         $stamps = [
-            [$khuvsgul, 2024, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2024-д оролцов', 'Б.Сарнай', 'Байгаль хамгаалагч', '2024-04-26'],
-            [$khuvsgul, 2024, 'Өсвөрийн байгаль хамгаалагчдыг бэлтгэх зуны зусланд оролцов', 'Б.Сарнай', 'Байгаль хамгаалагч', '2024-06-26'],
-            [$khuvsgul, 2024, 'Бүсийн сургалтад хамрагдав', 'Д.Батаа', 'Мэргэжилтэн', '2024-10-12'],
-            [$khuvsgul, 2025, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2025-д оролцов', 'Б.Сарнай', 'Байгаль хамгаалагч', '2025-04-25'],
-            [$khuvsgul, 2025, 'Сайн дурын ажилтан хүлээн авч ажиллуулав', 'Н.Отгонбаяр', 'Ахлах мэргэжилтэн/менежер', '2025-08-15'],
-            [$khuvsgul, 2026, 'Бүсийн сургалт 2026-д хамрагдав', 'Б.Сарнай', 'Байгаль хамгаалагч', '2026-08-20'],
-            [$terelj, 2024, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2024-д оролцов', 'Т.Мөнхжин', 'Мэргэжилтэн', '2024-04-26'],
-            [$terelj, 2025, 'Эгч дүүс паркийн хөтөлбөрт хамрагдав', 'Т.Мөнхжин', 'Мэргэжилтэн', '2025-06-10'],
+            ['demo@mongolec.org', 2024, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2024-д оролцов', '2024-04-26'],
+            ['demo@mongolec.org', 2024, 'Өсвөрийн байгаль хамгаалагчдыг бэлтгэх зуны зусланд оролцов', '2024-06-26'],
+            ['bataa@mongolec.org', 2024, 'Бүсийн сургалтад хамрагдав', '2024-10-12'],
+            ['demo@mongolec.org', 2025, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2025-д оролцов', '2025-04-25'],
+            ['otgonbayar@mongolec.org', 2025, 'Сайн дурын ажилтан хүлээн авч ажиллуулав', '2025-08-15'],
+            ['demo@mongolec.org', 2026, 'Бүсийн сургалт 2026-д хамрагдав', '2026-08-20'],
+            ['munkhjin@mongolec.org', 2024, '«Тусгай Хамгаалалттай Газар – Үндэсний бахархал» Хуралдай 2024-д оролцов', '2024-04-26'],
+            ['munkhjin@mongolec.org', 2025, 'Эгч дүүс паркийн хөтөлбөрт хамрагдав', '2025-06-10'],
         ];
 
-        foreach ($stamps as [$orgId, $year, $name, $staff, $pos, $date]) {
+        foreach ($stamps as [$email, $year, $name, $date]) {
+            $user = $users->get($email);
+
             $s = Stamp::create([
-                'org_id' => $orgId,
+                'org_id' => $user->org_id,
+                'user_id' => $user->id,
                 'year' => $year,
                 'name' => $name,
-                'staff_name' => $staff,
-                'staff_position' => $pos,
+                'staff_name' => $user->name,
+                'staff_position' => $user->position,
                 'stamp_date' => $date,
                 'status' => 'active',
                 'note' => 'NPA хөтөлбөрийн үйл ажиллагаанд идэвхтэй оролцсон.',

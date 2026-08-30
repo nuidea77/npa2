@@ -97,6 +97,7 @@ Route::prefix('api')->group(function () {
         Route::delete('/trainings/{id}', [ContentController::class, 'trainingsDelete']);
 
         // NPA тамга
+        Route::get('/orgs/{org}/users', [UsersController::class, 'byOrg']);
         Route::get('/stamps', [StampsController::class, 'index']);
         Route::post('/stamps', [StampsController::class, 'store']);
         Route::get('/stamps/{id}', [StampsController::class, 'show']);

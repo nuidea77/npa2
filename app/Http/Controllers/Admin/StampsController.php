@@ -7,15 +7,17 @@ use App\Models\Org;
 use App\Models\Stamp;
 use App\Models\StampLog;
 use App\Models\StampYear;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class StampsController extends Controller
 {
     /** Нийт тамга цуглуулсан ХЗ-дын тойм + тамгануудын жагсаалт */
     public function index(Request $request)
     {
-        $q = Stamp::with('org:id,name')->orderByDesc('stamp_date');
+        $q = Stamp::with(['org:id,name', 'user:id,name,email,position,photo'])->orderByDesc('stamp_date');
 
         if ($request->filled('org_id')) {
             $q->where('org_id', $request->query('org_id'));
@@ -40,14 +42,19 @@ class StampsController extends Controller
     /** ХЗ-д тамга нэмэх */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => $request->input('user_id') ?: null]);
+
         $data = $request->validate([
             'org_id' => ['required', 'exists:orgs,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
             'name' => ['required', 'string', 'max:300'],
             'staff_name' => ['nullable', 'string', 'max:190'],
             'staff_position' => ['nullable', 'string', 'max:190'],
             'stamp_date' => ['required', 'date'],
             'note' => ['nullable', 'string'],
         ]);
+
+        $data = $this->applySelectedUser($data, (int) $data['org_id']);
 
         $year = (int) date('Y', strtotime($data['stamp_date']));
 
@@ -67,7 +74,7 @@ class StampsController extends Controller
             'note' => 'Тамга нэмэгдэв',
         ]);
 
-        return response()->json(['message' => 'Тамга нэмэгдлээ.', 'stamp' => $stamp->load('org:id,name')], 201);
+        return response()->json(['message' => 'Тамга нэмэгдлээ.', 'stamp' => $stamp->load(['org:id,name', 'user:id,name,email,position,photo'])], 201);
     }
 
     /** Тамга засварлах */
@@ -75,14 +82,21 @@ class StampsController extends Controller
     {
         $stamp = Stamp::findOrFail($id);
 
+        if ($request->has('user_id')) {
+            $request->merge(['user_id' => $request->input('user_id') ?: null]);
+        }
+
         $data = $request->validate([
             'org_id' => ['sometimes', 'exists:orgs,id'],
+            'user_id' => ['sometimes', 'nullable', 'exists:users,id'],
             'name' => ['sometimes', 'string', 'max:300'],
             'staff_name' => ['sometimes', 'nullable', 'string', 'max:190'],
             'staff_position' => ['sometimes', 'nullable', 'string', 'max:190'],
             'stamp_date' => ['sometimes', 'date'],
             'note' => ['sometimes', 'nullable', 'string'],
         ]);
+
+        $data = $this->applySelectedUser($data, (int) ($data['org_id'] ?? $stamp->org_id));
 
         $stamp->fill($data);
         if (isset($data['stamp_date'])) {
@@ -100,7 +114,32 @@ class StampsController extends Controller
             'note' => $request->input('log_note', 'Мэдээлэл засварлав'),
         ]);
 
-        return response()->json(['message' => 'Засварлагдлаа.', 'stamp' => $stamp->load('org:id,name')]);
+        return response()->json(['message' => 'Засварлагдлаа.', 'stamp' => $stamp->load(['org:id,name', 'user:id,name,email,position,photo'])]);
+    }
+
+    /**
+     * Сонгосон хэрэглэгч тухайн ХЗ-нд харьяалагдаж буйг шалгаад,
+     * ажилтны нэр/албан тушаалыг тухайн үеийн байдлаар хуулж авна.
+     */
+    private function applySelectedUser(array $data, int $orgId): array
+    {
+        if (empty($data['user_id'])) {
+            return $data;
+        }
+
+        $user = User::find($data['user_id']);
+
+        if (!$user || (int) $user->org_id !== $orgId) {
+            throw ValidationException::withMessages([
+                'user_id' => 'Сонгосон хэрэглэгч тухайн Хамгаалалтын захиргаанд харьяалагдахгүй байна.',
+            ]);
+        }
+
+        // Гараар өөр нэр бичсэн бол түүнийг нь хүндэтгэнэ, эс бөгөөс хэрэглэгчээс авна
+        $data['staff_name'] = trim((string) ($data['staff_name'] ?? '')) ?: $user->name;
+        $data['staff_position'] = trim((string) ($data['staff_position'] ?? '')) ?: $user->position;
+
+        return $data;
     }
 
     /** Тамга хасах (шалтгаантай, лог үлдэнэ, тоо автоматаар шинэчлэгдэнэ) */
@@ -129,7 +168,7 @@ class StampsController extends Controller
     /** Тамганы дэлгэрэнгүй + админы лог */
     public function show(int $id)
     {
-        return response()->json(['stamp' => Stamp::with(['org:id,name', 'logs'])->findOrFail($id)]);
+        return response()->json(['stamp' => Stamp::with(['org:id,name', 'user:id,name,email,position,photo', 'logs'])->findOrFail($id)]);
     }
 
     /** Жил бүрийн тамганы тохиргоо (эхлэх, дуусах огноо, загвар зураг) */

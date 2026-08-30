@@ -28,6 +28,17 @@ class UsersController extends Controller
         return response()->json(['users' => $q->get()]);
     }
 
+    /** Тухайн ХЗ-нд харьяалагдах, баталгаажсан хэрэглэгчид (тамга олгох сонголтод) */
+    public function byOrg(int $orgId)
+    {
+        $users = User::where('org_id', $orgId)
+            ->where('status', 'active')
+            ->orderBy('last_name')
+            ->get(['id', 'name', 'last_name', 'first_name', 'email', 'position', 'photo']);
+
+        return response()->json(['users' => $users]);
+    }
+
     /** Бүртгэл баталгаажуулах */
     public function approve(Request $request, int $id)
     {

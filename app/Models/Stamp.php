@@ -15,6 +15,12 @@ class Stamp extends Model
         return $this->belongsTo(Org::class);
     }
 
+    /** Тамга олгогдсон бүртгэлтэй хэрэглэгч (байхгүй ч байж болно) */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function logs()
     {
         return $this->hasMany(StampLog::class)->orderByDesc('id');
