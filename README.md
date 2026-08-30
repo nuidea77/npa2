@@ -133,7 +133,10 @@ MAIL_FROM_ADDRESS=info@mongolec.org
 - `hero.svg` — нүүрний том зураг
 - `park-*.svg` — ТХГ-ын зургууд (CMS-ээс ТХГ бүрд өөр зураг оруулж болно)
 - `news-*.svg`, `gallery-*.svg` — мэдээ, галерей
-- `stamp-YYYY.svg` — жил бүрийн тамганы загвар (админ панелаас солино)
+- `stamp-YYYY.svg` — жил бүрийн тамганы загвар. Админ панелийн **NPA тамга → Жил бүрийн
+  тамганы тохиргоо → Засах** хэсгээс зургийг шууд байршуулна (PNG/JPG/WEBP, 4MB хүртэл);
+  байршуулсан файл `storage/app/public/uploads/stamps/` дотор хадгалагдана, тиймээс
+  `php artisan storage:link` заавал ажиллуулсан байх ёстой
 - `passport.svg`, `yosemite.svg`, `denali.svg`, `logo.svg`
 
 ## Бүтэц

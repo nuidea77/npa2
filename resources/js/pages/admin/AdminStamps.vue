@@ -23,7 +23,13 @@ const errors = ref({});
 const deleting = ref(null);  // хасах гэж буй тамга
 const deleteReason = ref('');
 const detail = ref(null);    // дэлгэрэнгүй + лог
-const yearForm = ref(null);  // жилийн тохиргоо
+
+// Жилийн тохиргоо (тамганы загвар зураг)
+const yearForm = ref(null);
+const yearFile = ref(null);     // сонгосон шинэ файл
+const yearPreview = ref('');    // сонгосон файлын урьдчилсан харагдац (blob URL)
+const yearErrors = ref({});
+const yearSaving = ref(false);
 
 async function load() {
     loading.value = true;
@@ -88,13 +94,61 @@ async function openDetail(s) {
     detail.value = data.stamp;
 }
 
+function clearPreview() {
+    if (yearPreview.value) URL.revokeObjectURL(yearPreview.value);
+    yearPreview.value = '';
+}
+
+function openYear(y = null) {
+    const now = new Date().getFullYear();
+    yearForm.value = y
+        ? { year: y.year, start_date: y.start_date, end_date: y.end_date, design_image_url: y.design_image ?? '' }
+        : { year: now + 1, start_date: `${now + 1}-01-01`, end_date: `${now + 1}-12-31`, design_image_url: '' };
+    yearFile.value = null;
+    yearErrors.value = {};
+    clearPreview();
+}
+
+function closeYear() {
+    yearForm.value = null;
+    yearFile.value = null;
+    clearPreview();
+}
+
+function pickYearImage(e) {
+    const f = e.target.files?.[0] ?? null;
+    yearFile.value = f;
+    clearPreview();
+    if (f) yearPreview.value = URL.createObjectURL(f);
+    delete yearErrors.value.design_image;
+}
+
+/** Байршуулсан зураг болон замыг хоёуланг нь цэвэрлэнэ */
+function removeYearImage() {
+    yearFile.value = null;
+    yearForm.value.design_image_url = '';
+    clearPreview();
+}
+
 async function saveYear() {
+    yearSaving.value = true;
+    yearErrors.value = {};
     try {
-        await axios.post('/api/admin/stamp-years', yearForm.value);
-        yearForm.value = null;
+        const body = new FormData();
+        body.append('year', yearForm.value.year ?? '');
+        body.append('start_date', yearForm.value.start_date ?? '');
+        body.append('end_date', yearForm.value.end_date ?? '');
+        body.append('design_image_url', yearForm.value.design_image_url ?? '');
+        if (yearFile.value) body.append('design_image', yearFile.value);
+
+        await axios.post('/api/admin/stamp-years', body);
+        closeYear();
         await load();
     } catch (e) {
-        alert(Object.values(e.response?.data?.errors ?? {}).flat().join('\n') || 'Алдаа гарлаа.');
+        yearErrors.value = e.response?.data?.errors ?? {};
+        if (!Object.keys(yearErrors.value).length) alert(e.response?.data?.message ?? 'Алдаа гарлаа.');
+    } finally {
+        yearSaving.value = false;
     }
 }
 </script>
@@ -113,16 +167,19 @@ async function saveYear() {
         <div class="mt-5 rounded-2xl border border-stone-100 bg-white p-4 shadow-sm">
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <h2 class="text-sm font-bold text-stone-700">Жил бүрийн тамганы тохиргоо</h2>
-                <button class="text-xs font-semibold text-pine-600 hover:underline" @click="yearForm = { year: new Date().getFullYear() + 1, start_date: '', end_date: '', design_image_url: '' }">+ Жил нэмэх</button>
+                <button class="text-xs font-semibold text-pine-600 hover:underline" @click="openYear()">+ Жил нэмэх</button>
             </div>
             <div class="mt-3 flex flex-wrap gap-3">
                 <div v-for="y in years" :key="y.id" class="flex items-center gap-2.5 rounded-xl border border-stone-100 bg-stone-50 px-3 py-2">
-                    <img v-if="y.design_image" :src="y.design_image" class="h-9 w-9" alt="" />
+                    <img v-if="y.design_image" :src="y.design_image" class="h-10 w-10 rounded-lg object-contain" alt="" />
+                    <span v-else class="flex h-10 w-10 items-center justify-center rounded-lg border border-dashed border-stone-300 text-stone-300">
+                        <Icon name="image" :size="16" />
+                    </span>
                     <div>
                         <div class="text-sm font-bold text-stone-700">NPA тамга {{ y.year }}</div>
                         <div class="text-xs text-stone-400">{{ y.start_date }} — {{ y.end_date }}</div>
                     </div>
-                    <button class="text-xs text-pine-600 hover:underline" @click="yearForm = { year: y.year, start_date: y.start_date, end_date: y.end_date, design_image_url: y.design_image }">Засах</button>
+                    <button class="text-xs text-pine-600 hover:underline" @click="openYear(y)">Засах</button>
                 </div>
             </div>
         </div>
@@ -258,18 +315,63 @@ async function saveYear() {
         </Modal>
 
         <!-- Жилийн тохиргоо -->
-        <Modal :show="!!yearForm" title="Жилийн тамганы тохиргоо" @close="yearForm = null">
+        <Modal :show="!!yearForm" title="Жилийн тамганы тохиргоо" @close="closeYear">
             <div v-if="yearForm" class="grid gap-3">
-                <input v-model.number="yearForm.year" type="number" class="input w-full" placeholder="Жил" />
-                <div class="grid grid-cols-2 gap-3">
-                    <div><label class="text-xs text-stone-400">Эхлэх огноо</label><input v-model="yearForm.start_date" type="date" class="input w-full" /></div>
-                    <div><label class="text-xs text-stone-400">Дуусах огноо</label><input v-model="yearForm.end_date" type="date" class="input w-full" /></div>
+                <div>
+                    <label class="text-xs text-stone-400">Жил</label>
+                    <input v-model.number="yearForm.year" type="number" class="input w-full" placeholder="Жил" />
+                    <p v-if="yearErrors.year" class="err">{{ yearErrors.year[0] }}</p>
                 </div>
-                <input v-model="yearForm.design_image_url" class="input w-full" placeholder="Загвар зургийн зам (ж: /images/stamp-2027.svg)" />
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-stone-400">Эхлэх огноо</label>
+                        <input v-model="yearForm.start_date" type="date" class="input w-full" />
+                        <p v-if="yearErrors.start_date" class="err">{{ yearErrors.start_date[0] }}</p>
+                    </div>
+                    <div>
+                        <label class="text-xs text-stone-400">Дуусах огноо</label>
+                        <input v-model="yearForm.end_date" type="date" class="input w-full" />
+                        <p v-if="yearErrors.end_date" class="err">{{ yearErrors.end_date[0] }}</p>
+                    </div>
+                </div>
+
+                <!-- Тамганы загвар зураг -->
+                <div class="rounded-xl border border-stone-200 p-3">
+                    <div class="text-sm font-bold text-stone-700">Тамганы загвар зураг</div>
+                    <div class="mt-3 flex items-start gap-4">
+                        <div class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-stone-200 bg-stone-50">
+                            <img v-if="yearPreview || yearForm.design_image_url" :src="yearPreview || yearForm.design_image_url" class="h-full w-full object-contain" alt="" />
+                            <Icon v-else name="image" :size="22" class="text-stone-300" />
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <input
+                                type="file"
+                                accept="image/png,image/jpeg,image/webp"
+                                class="input w-full text-xs"
+                                @change="pickYearImage"
+                            />
+                            <p class="mt-1.5 text-xs text-stone-400">PNG, JPG, WEBP — 4MB хүртэл. Дөрвөлжин зураг тохиромжтой.</p>
+                            <p v-if="yearErrors.design_image" class="err">{{ yearErrors.design_image[0] }}</p>
+                            <button
+                                v-if="yearPreview || yearForm.design_image_url"
+                                type="button"
+                                class="mt-2 flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:underline"
+                                @click="removeYearImage"
+                            >
+                                <Icon name="trash" :size="13" /> Зургийг хасах
+                            </button>
+                        </div>
+                    </div>
+                    <details class="mt-3">
+                        <summary class="cursor-pointer text-xs text-stone-400 hover:text-stone-600">Эсвэл зургийн замыг гараар оруулах</summary>
+                        <input v-model="yearForm.design_image_url" class="input mt-2 w-full text-xs" placeholder="/images/stamp-2027.svg" />
+                        <p v-if="yearErrors.design_image_url" class="err">{{ yearErrors.design_image_url[0] }}</p>
+                    </details>
+                </div>
             </div>
             <template #actions>
-                <button class="mr-2 rounded-full px-4 py-2 text-sm text-stone-500 hover:bg-stone-100" @click="yearForm = null">Болих</button>
-                <button class="btn-primary" @click="saveYear">Хадгалах</button>
+                <button class="mr-2 rounded-full px-4 py-2 text-sm text-stone-500 hover:bg-stone-100" @click="closeYear">Болих</button>
+                <button class="btn-primary" :disabled="yearSaving" @click="saveYear">{{ yearSaving ? 'Хадгалж байна...' : 'Хадгалах' }}</button>
             </template>
         </Modal>
     </div>

@@ -8,6 +8,7 @@ use App\Models\Stamp;
 use App\Models\StampLog;
 use App\Models\StampYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StampsController extends Controller
 {
@@ -139,20 +140,33 @@ class StampsController extends Controller
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after:start_date'],
             'design_image_url' => ['nullable', 'string', 'max:500'],
-            'design_image' => ['nullable', 'image', 'max:4096'],
+            'design_image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
+        ], [
+            'design_image.image' => 'Зөвхөн зураг файл байршуулна уу.',
+            'design_image.mimes' => 'Зөвхөн PNG, JPG, WEBP өргөтгөлтэй зураг байршуулна уу.',
+            'design_image.max' => 'Зургийн хэмжээ 4MB-аас хэтрэхгүй байх ёстой.',
+            'end_date.after' => 'Дуусах огноо нь эхлэх огнооноос хойш байх ёстой.',
         ]);
 
         $year = StampYear::firstOrNew(['year' => $data['year']]);
         $year->start_date = $data['start_date'];
         $year->end_date = $data['end_date'];
 
+        $previous = $year->design_image;
+
         if ($request->hasFile('design_image')) {
             $year->design_image = '/storage/' . $request->file('design_image')->store('uploads/stamps', 'public');
-        } elseif (!empty($data['design_image_url'])) {
-            $year->design_image = $data['design_image_url'];
+        } else {
+            // Хоосон утга ирвэл зургийг авч хаяна
+            $year->design_image = ($data['design_image_url'] ?? null) ?: null;
         }
 
         $year->save();
+
+        // Солигдсон бол өмнө нь байршуулсан файлыг цэвэрлэнэ (гараар тавьсан замд хүрэхгүй)
+        if ($previous && $previous !== $year->design_image && str_starts_with($previous, '/storage/uploads/stamps/')) {
+            Storage::disk('public')->delete(substr($previous, strlen('/storage/')));
+        }
 
         return response()->json(['message' => 'Хадгалагдлаа.', 'year' => $year]);
     }
